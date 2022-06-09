@@ -12,10 +12,11 @@ from utils import *
 # file.close()
 
 import pandas as pd
-file = pd.read_csv('48_nghia_mic.csv')
-stns = file['Groundtruth']
+file1 = pd.read_csv('48_nghia_mic.csv')
+file2 = pd.read_csv('2_hongnhu_mic.csv')
+stns = pd.concat([file1['Groundtruth'],file1['Groundtruth']],axis=0)
 for stn in stns:
 	print(stn)
-	print(clean_num(stn))
+	print(token_label(stn.split()))
 	print('---------------------------------')
-
+# pd.concat([stns,stns.map(lambda x:' '.join(token_label(x.split())))],axis=1).to_csv('dataset.csv',index=False)

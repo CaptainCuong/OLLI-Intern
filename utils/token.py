@@ -22,6 +22,7 @@ num = {
 		}
 
 post_num = {
+		'mốt':'1'
 		'tư':'4',
 		'lăm':'5'
 		}
@@ -41,4 +42,4 @@ sub_num_mag = ['lẻ','linh']
 
 unit = ['kí lô gam', 'kí', 'cây số',
 		'giờ', 'mét', 'ki lô mét', 'tạ',
-		'yến', 'tá', 'héc ta']
+		'yến', 'tá', 'héc ta', 'phút']
