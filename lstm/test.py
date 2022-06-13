@@ -192,17 +192,11 @@ for i in range(epochs):
         h = tuple([e.data for e in h])
         inputs, labels = inputs.to(device), labels.to(device)
         model.zero_grad()
-        print(1)
         output, h = model(inputs, h)
-        print(2)
         loss = criterion(output.squeeze(), labels.float())
-        print(3)
         loss.backward()
-        print(4)
         nn.utils.clip_grad_norm_(model.parameters(), clip)
-        print(5)
         optimizer.step()
-        print(6)
         if counter%print_every == 0:
             val_h = model.init_hidden(batch_size)
             val_losses = []
@@ -227,25 +221,25 @@ for i in range(epochs):
 
 ######### Test Model ######### 
 
-# # Loading the best model
-# model.load_state_dict(torch.load('./state_dict.pt'))
+# Loading the best model
+model.load_state_dict(torch.load('./state_dict.pt'))
 
-# test_losses = []
-# num_correct = 0
-# h = model.init_hidden(batch_size)
+test_losses = []
+num_correct = 0
+h = model.init_hidden(batch_size)
 
-# model.eval()
-# for inputs, labels in test_loader:
-#     h = tuple([each.data for each in h])
-#     inputs, labels = inputs.to(device), labels.to(device)
-#     output, h = model(inputs, h)
-#     test_loss = criterion(output.squeeze(), labels.float())
-#     test_losses.append(test_loss.item())
-#     pred = torch.round(output.squeeze())  # Rounds the output to 0/1
-#     correct_tensor = pred.eq(labels.float().view_as(pred))
-#     correct = np.squeeze(correct_tensor.cpu().numpy())
-#     num_correct += np.sum(correct)
+model.eval()
+for inputs, labels in test_loader:
+    h = tuple([each.data for each in h])
+    inputs, labels = inputs.to(device), labels.to(device)
+    output, h = model(inputs, h)
+    test_loss = criterion(output.squeeze(), labels.float())
+    test_losses.append(test_loss.item())
+    pred = torch.round(output.squeeze())  # Rounds the output to 0/1
+    correct_tensor = pred.eq(labels.float().view_as(pred))
+    correct = np.squeeze(correct_tensor.cpu().numpy())
+    num_correct += np.sum(correct)
 
-# print("Test loss: {:.3f}".format(np.mean(test_losses)))
-# test_acc = num_correct/len(test_loader.dataset)
-# print("Test accuracy: {:.3f}%".format(test_acc*100))
+print("Test loss: {:.3f}".format(np.mean(test_losses)))
+test_acc = num_correct/len(test_loader.dataset)
+print("Test accuracy: {:.3f}%".format(test_acc*100))
