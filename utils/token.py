@@ -1,3 +1,6 @@
+token = ['num', 'post_num', 'flt', 'num_mag', 'sub_num_mag', 'unit', 'unknown']
+
+
 num = {
 		'không':'0',
 		'một':'1',
@@ -22,7 +25,7 @@ num = {
 		}
 
 post_num = {
-		'mốt':'1'
+		'mốt':'1',
 		'tư':'4',
 		'lăm':'5'
 		}

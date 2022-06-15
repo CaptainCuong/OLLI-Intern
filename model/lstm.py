@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 # torch.cuda.is_available() checks and returns a Boolean True if a GPU is available, else it'll return False
 is_cuda = torch.cuda.is_available()
 
@@ -10,9 +11,9 @@ if is_cuda:
 else:
     device = torch.device("cpu")
 
-class NERNet(nn.Module):
+class NER_LSTMNet(nn.Module):
     def __init__(self, vocab_size, output_size, embedding_dim, hidden_dim, n_layers, drop_prob=0.5):
-        super(SentimentNet, self).__init__()
+        super(NER_LSTMNet, self).__init__()
         self.output_size = output_size
         self.n_layers = n_layers
         self.hidden_dim = hidden_dim
