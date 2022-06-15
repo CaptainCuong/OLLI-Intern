@@ -10,7 +10,7 @@ if is_cuda:
 else:
     device = torch.device("cpu")
 
-class SentimentNet(nn.Module):
+class NERNet(nn.Module):
     def __init__(self, vocab_size, output_size, embedding_dim, hidden_dim, n_layers, drop_prob=0.5):
         super(SentimentNet, self).__init__()
         self.output_size = output_size
