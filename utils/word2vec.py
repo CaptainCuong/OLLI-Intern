@@ -16,4 +16,4 @@ def word2vec(sentences, labels):
 	for i, snt in enumerate(sentences):
 	    sentences[i] = [word2idx[w] for w in nltk.word_tokenize(snt)]
 	labels = [[token2ind[lb] for lb in nltk.word_tokenize(lbs)] for lbs in labels]
-	return sentences, labels
+	return sentences, labels, len(cnt.items())
