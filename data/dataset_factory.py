@@ -10,7 +10,7 @@ class MyData(Dataset):
       return (self.data[ind], self.label[ind])
 
   def __len__(self):
-      return len(data)
+      return len(self.data)
 
 
 def create_dataset(data, label):

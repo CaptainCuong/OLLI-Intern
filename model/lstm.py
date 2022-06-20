@@ -30,10 +30,12 @@ class NER_LSTMNet(nn.Module):
     def forward(self, x):
         '''
         x: sequence of encoded words
-        shape of x: [batchsize, seq_len, embedding_dim]
+        shape of x: [batch_size, seq_len]
 
         hidden: initial hidden
         '''
+        assert len(x.size()) == 2, 'Input must have 2 dimension (batch_size, seq_len)'
+        assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified'
         self.batch_size = x.size(0)
         x = x.long()
         hidden = self.init_hidden(self.batch_size)
@@ -87,3 +89,7 @@ class NER_LSTMNet(nn.Module):
                 loss = criterion(out_decode, labels)
                 loss.backward()
                 optimizer.step()
+
+model = NER_LSTMNet(50,4,4,256,128,2)
+z = torch.rand([20,20])+10
+model(z)

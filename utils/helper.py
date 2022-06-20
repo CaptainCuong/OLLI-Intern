@@ -1,5 +1,8 @@
 from .token import flt, num, num_mag, post_num, sub_num_mag, unit
 
+'''
+'clean_num' is the main function to convert literal to sequence
+'''
 
 def convert_to_litnum(str_in):
     words = str_in.split()
