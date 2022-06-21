@@ -1,4 +1,7 @@
 Sentences,Label
+năm hai ngàn không trăm hai ba,unknown num num_mag num num_mag num num
+năm hai ngàn không trăm hai bốn,unknown num num_mag num num_mag num num
+năm hai ngàn không trăm hai hai,unknown num num_mag num num_mag num num
 mở danh sách nhạc yêu thích,unknown unknown unknown unknown unknown unknown
 mở nhạc rì mít,unknown unknown unknown unknown
 mở nhạc không lời trong hai mươi phút,unknown unknown num unknown unknown num num_mag unknown
@@ -15,14 +18,17 @@ kể truyện thạch sùng,unknown unknown unknown unknown
 kể truyện thánh gióng,unknown unknown unknown unknown
 kể truyện sự tích cây vú sữa,unknown unknown unknown unknown unknown unknown unknown
 kể truyện trí khôn của ta đây,unknown unknown unknown unknown unknown unknown unknown
+năm hai ngàn không trăm hai mươi hai,unknown num num_mag num num_mag num num_mag num
 bật bờ lu tút,unknown unknown unknown unknown
 tăng âm lượng lên mức mười,unknown unknown unknown unknown unknown num
 giảm âm lượng về mức bốn,unknown unknown unknown unknown unknown num
 tắt bờ lu tút,unknown unknown unknown unknown
 ba mươi tháng tư hai không hai hai là thứ mấy,num num_mag unknown post_num num num num num unknown unknown unknown
 tết nguyên đán hai không hai ba ngày dương bao nhiêu,unknown unknown unknown num num num num unknown unknown unknown unknown
-tháng này có ba mốt ngày không,unknown unknown unknown num unknown unknown num
+năm hai ngàn không trăm hai mươi mốt,unknown num num_mag num num_mag num num_mag post_num
+tháng này có ba mốt ngày không,unknown unknown unknown num post_num unknown unknown
 con vịt kêu như thế nào,unknown unknown unknown unknown unknown unknown
+thứ sáu ngày mười ba,unknown num unknown num_mag num
 con bò kêu sao,unknown unknown unknown unknown
 mở ra đi ô,unknown unknown unknown unknown
 bật rây đi ô tần số ép em chín bảy mê ga héc,unknown unknown unknown unknown unknown unknown unknown unknown num num unknown unknown unknown
@@ -46,7 +52,7 @@ nhắc tôi đem áo mưa vào tám giờ sáng mai,unknown unknown unknown unkn
 thời tiết quận ba bây giờ,unknown unknown unknown num unknown unit
 nhiệt độ ngoài trời quận ba hiện tại là bao nhiêu,unknown unknown unknown unknown unknown num unknown unknown unknown unknown unknown
 hiền hồ là ai,unknown unknown unknown unknown
-dịch câu tao không sợ ra tiếng hán,unknown unknown unknown num unknown unknown unknown unknown
+dịch câu tao không sợ ra tiếng hán,unknown unknown unknown unknown unknown unknown unknown unknown
 tám bình cộng mười hai bằng bao nhiêu,num unknown unknown num num unknown unknown unknown
 triệu chứng hậu cô vít,num_mag unknown unknown unknown unknown
 quê hương của nô bi ta ở đâu,unknown unknown unknown unknown unknown unknown unknown unknown

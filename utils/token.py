@@ -1,5 +1,12 @@
 token = ['num', 'post_num', 'flt', 'num_mag', 'sub_num_mag', 'unit', 'unknown']
 
+token2idx = {tok:i for i, tok in enumerate(token)}
+idx2token = {i:tok for i, tok in enumerate(token)}
+token2vec = {}
+for key in token2idx.keys():
+	vec = [0 for i in range(len(token))]
+	vec[token2idx[key]] = 1
+	token2vec[key] = vec
 
 num = {
 		'không':'0',

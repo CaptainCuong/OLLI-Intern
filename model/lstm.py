@@ -66,30 +66,36 @@ class NER_LSTMNet(nn.Module):
                       weight.new(self.n_layers, batch_size, self.hidden_dim).zero_().to(device))
         return hidden
  
-    def train(train_loader, epochs, batch_size, learning_rate, criterion, optimizer, clip):
+    def train(self, train_loader, epochs, batch_size, learning_rate, criterion, optimizer, clip):
         '''
         train_loader:
             input: (batch_size, seq_len, embedding_dim)
             output: (batch_size, seq_len, out_dim)
         '''
         self.batch_size = batch_size
-        assert train_loader[0].size(1) == self.seq_len
+        assert next(iter(train_loader))[0].shape[1] == self.seq_len, 'Not match length of sequences'
         assert criterion in ['BCE']
         assert optimizer in ['Adam']
         if criterion == 'BCE':
             criterion = nn.BCELoss()
         if optimizer == 'Adam':
             optimizer = torch.optim.Adam(self.parameters(), lr = learning_rate)
-        self.train()
- 
+        
+        loss = 0
         for i in range(epochs):
+            super().train()
             for inputs, labels in train_loader:
                 out_decode = self(inputs)
                 self.zero_grad()
                 loss = criterion(out_decode, labels)
                 loss.backward()
                 optimizer.step()
+            super().train(False)
+            print('Epoch %d:\nLoss: %f\n-----------\n'%(i,loss.item()))
 
-model = NER_LSTMNet(50,4,4,256,128,2)
-z = torch.rand([20,20])+10
-model(z)
+    def eval(self, dataloader, criterion):
+        score = []
+        criterion = nn.BCELoss()
+        for stn, label in dataloader:
+            score += [criterion(self(stn), label)]
+        return sum(score.item())/len(score)
