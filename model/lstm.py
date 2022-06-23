@@ -18,6 +18,7 @@ class NER_LSTMNet(nn.Module):
         self.hidden_dim = hidden_dim
         self.seq_len = seq_len
         self.batch_size = batch_size
+        self.gpu = torch.cuda.is_available()
         
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         self.lstm_encode = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)

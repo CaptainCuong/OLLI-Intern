@@ -24,6 +24,6 @@ embedding_dim = 128
 hidden_dim = 256
 n_layers = 2
 model = NER_LSTMNet(vocab_size, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len=SEQ_LEN)
-model.load_state_dict(torch.load('model.pt'))
+model.load_state_dict(torch.load('model.pt',map_location=torch.device('cpu')))
 
-model(loader[0].unsqueeze(0))
+print(model(loader[0].unsqueeze(0)))

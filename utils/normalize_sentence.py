@@ -19,4 +19,9 @@ def nml_label(seq_len, labels):
 	ret = np.zeros((len(labels), seq_len, len(labels[0][0])), dtype=np.float32)
 	for ind, label in enumerate(labels):
 		ret[ind][:len(label)] = np.array(label[:seq_len], dtype=np.float32)
+		pad = np.zeros(len(labels[0][0]), dtype=np.float32)
+		pad[len(labels[0][0]) - 1] = 1
+		for i in range(len(label), seq_len):
+			ret[ind][i] = pad
+
 	return ret
