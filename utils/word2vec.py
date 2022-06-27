@@ -71,4 +71,15 @@ def word2vecVN(sentences,labels):
 	snts = pad_sequence(snts,batch_first=True)
 	labels = [torch.tensor([token2idx[lb] for lb in nltk.word_tokenize(lbs)]) for lbs in labels]
 	labels = pad_sequence(labels,batch_first=True) 
+	def aggregatenum(tensor):
+		for i in range(len(tensor)):
+			for j in range(len(tensor[0])):
+				if tensor[i][j] == 7:
+					tensor[i][j] = 2
+				elif tensor[i][j] == 0:
+					tensor[i][j] = 0
+				else:
+					tensor[i][j] = 1
+		return tensor
+	aggregatenum(labels)
 	return snts, labels

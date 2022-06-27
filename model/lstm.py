@@ -87,7 +87,7 @@ class NER_LSTMNet(nn.Module):
             for inputs, labels in train_loader:
                 if torch.cuda.is_available():
                     inputs, labels = inputs.cuda(), labels.cuda()
-                out_decode = self(inputs).view(-1, 8)
+                out_decode = self(inputs).view(-1, self.output_size)
                 self.zero_grad()
                 labels = labels.to(torch.long)
                 loss = criterion(out_decode, labels.view(-1))

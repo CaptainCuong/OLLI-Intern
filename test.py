@@ -46,7 +46,7 @@ model.load_state_dict(torch.load('model.pt', map_location=torch.device('cpu')))
 data, label = next(iter(loader))
 
 
-def num_nonnum(tensor):
+def aggregatenum(tensor):
 	for i in range(len(tensor)):
 		for j in range(len(tensor[0])):
 			if tensor[i][j] == 7:
@@ -58,6 +58,6 @@ def num_nonnum(tensor):
 	return tensor
 
 pred = model(data).argmax(dim=2)
-print(num_nonnum(pred))
-print(num_nonnum(label))
+print(aggregatenum(pred))
+print(aggregatenum(label))
 print((pred==label).sum())
