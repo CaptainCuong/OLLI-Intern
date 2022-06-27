@@ -11,7 +11,8 @@ else:
     device = torch.device("cpu")
 
 class NER_LSTMNet(nn.Module):
-    def __init__(self, vocab_size, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
+    # def __init__(self, vocab_size, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
+    def __init__(self, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
         super(NER_LSTMNet, self).__init__()
         self.output_size = output_size
         self.n_layers = n_layers
@@ -19,8 +20,7 @@ class NER_LSTMNet(nn.Module):
         self.seq_len = seq_len
         self.batch_size = batch_size
         self.gpu = torch.cuda.is_available()
-        
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+ 
         self.lstm_encode = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
         self.lstm_decode = nn.LSTM(output_size, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
         self.dropout = nn.Dropout(drop_prob)
@@ -35,18 +35,17 @@ class NER_LSTMNet(nn.Module):
 
         hidden: initial hidden
         '''
-        assert len(x.size()) == 2, 'Input must have 2 dimension (batch_size, seq_len)'
+        assert len(x.size()) == 3, 'Input must have 3 dimension (batch_size, seq_len, dim)'
         assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified'
         self.batch_size = x.size(0)
-        x = x.long()
+        # ENCODE
+        x = x.type(torch.FloatTensor).to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
         hidden = self.init_hidden(self.batch_size)
-        encode_in = self.embedding(x)
-        encode_out, hidden = self.lstm_encode(encode_in, hidden)
- 
+        encode_out, hidden = self.lstm_encode(x, hidden)
+        
+        # DECODE
         pred_entity = []
         in_decode = torch.zeros([self.batch_size, 1, self.output_size])
-        for i in range(self.batch_size):
-            in_decode[i][0][0] = 1
         out_decode = None
         for i in range(self.seq_len):
             out_decode, hidden = self.lstm_decode(in_decode, hidden)
@@ -55,9 +54,9 @@ class NER_LSTMNet(nn.Module):
             pred_entity.append(out_decode)
 
             in_decode = torch.zeros([self.batch_size, 1, self.output_size])
-            max_ind = torch.argmax(out_decode, dim = 2)
-            for i in range(self.batch_size):
-                in_decode[i][0][max_ind[i][0]] = 1
+            # max_ind = torch.argmax(out_decode, dim = 2)
+            # for i in range(self.batch_size):
+            #     in_decode[i][0][max_ind[i][0]] = 1
  
         return torch.cat(pred_entity, dim = 1)
     
@@ -75,10 +74,10 @@ class NER_LSTMNet(nn.Module):
         '''
         self.batch_size = batch_size
         assert next(iter(train_loader))[0].shape[1] == self.seq_len, 'Not match length of sequences'
-        assert criterion in ['BCE']
+        assert criterion in ['CE']
         assert optimizer in ['Adam']
-        if criterion == 'BCE':
-            criterion = nn.BCELoss()
+        if criterion == 'CE':
+            criterion = nn.CrossEntropyLoss()
         if optimizer == 'Adam':
             optimizer = torch.optim.Adam(self.parameters(), lr = learning_rate)
         
@@ -86,13 +85,21 @@ class NER_LSTMNet(nn.Module):
         for i in range(epochs):
             super().train()
             for inputs, labels in train_loader:
-                out_decode = self(inputs)
+                if torch.cuda.is_available():
+                    inputs, labels = inputs.cuda(), labels.cuda()
+                out_decode = self(inputs).view(-1, 8)
                 self.zero_grad()
-                loss = criterion(out_decode, labels)
+                labels = labels.to(torch.long)
+                loss = criterion(out_decode, labels.view(-1))
                 loss.backward()
                 optimizer.step()
             super().train(False)
-            print('Epoch %d:\nLoss: %f\n-----------\n'%(i,loss.item()))
+            a = next(iter(train_loader))
+            if torch.cuda.is_available():
+                a = a[0].cuda(), a[1].cuda()
+            b = self(a[0])
+            x = ((a[1] == b.argmax(dim=2))).view(-1)
+            print('Epoch %d:\nLoss: %f\nAccuracy: %d\n-----------\n'%(i,loss.item(),x.sum().item()/x.shape[0]))
 
     def eval(self, dataloader, criterion):
         score = []

@@ -1,7 +1,11 @@
-from collections import Counter
 import re
+from collections import Counter
+
 import nltk
 import numpy as np
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader, TensorDataset
 
 train_file = open('train.ft.txt','rb')
 test_file = open('test.ft.txt','rb')
@@ -100,9 +104,6 @@ val_labels, test_labels = test_labels[:split_id], test_labels[split_id:]
 
 ######### Prepare Loader ######### 
 
-import torch
-from torch.utils.data import TensorDataset, DataLoader
-import torch.nn as nn
 
 train_data = TensorDataset(torch.from_numpy(train_sentences), torch.from_numpy(train_labels))
 val_data = TensorDataset(torch.from_numpy(val_sentences), torch.from_numpy(val_labels))

@@ -1,4 +1,4 @@
-token = ['num', 'post_num', 'flt', 'num_mag', 'sub_num_mag', 'unit', 'unknown', 'padding']
+token = ['padding', 'num', 'post_num', 'flt', 'num_mag', 'sub_num_mag', 'unit', 'unknown']
 
 token2idx = {tok:i for i, tok in enumerate(token)}
 idx2token = {i:tok for i, tok in enumerate(token)}

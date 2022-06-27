@@ -1,5 +1,6 @@
 from .token import flt, num, num_mag, post_num, sub_num_mag, unit
 
+
 '''
 'clean_num' is the main function to convert literal to sequence
 '''
