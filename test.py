@@ -38,6 +38,7 @@ dataset = create_dataset(snts, labels)
 loader = create_loader(dataset, BATCH_SIZE, True)
 
 output_size = n_entity = len(token)
+output_size = n_entity = 3
 embedding_dim = 400
 hidden_dim = 800
 n_layers = 2
@@ -46,18 +47,19 @@ model.load_state_dict(torch.load('model.pt', map_location=torch.device('cpu')))
 data, label = next(iter(loader))
 
 
-def aggregatenum(tensor):
-	for i in range(len(tensor)):
-		for j in range(len(tensor[0])):
-			if tensor[i][j] == 7:
-				tensor[i][j] = 2
-			elif tensor[i][j] == 0:
-				tensor[i][j] = 0
-			else:
-				tensor[i][j] = 1
-	return tensor
+# def aggregatenum(tensor):
+# 	for i in range(len(tensor)):
+# 		for j in range(len(tensor[0])):
+# 			if tensor[i][j] == 7:
+# 				tensor[i][j] = 2
+# 			elif tensor[i][j] == 0:
+# 				tensor[i][j] = 0
+# 			else:
+# 				tensor[i][j] = 1
+# 	return tensor
+
 
 pred = model(data).argmax(dim=2)
-print(aggregatenum(pred))
-print(aggregatenum(label))
-print((pred==label).sum())
+print(pred)
+compare = (pred==label).view(-1)
+print(compare.sum()/len(compare))
