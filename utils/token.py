@@ -8,6 +8,8 @@ for key in token2idx.keys():
 	vec[token2idx[key]] = 1
 	token2vec[key] = vec
 
+hard = ['không','triệu','năm','ba']
+
 num = {
 		'không':'0',
 		'một':'1',
@@ -45,7 +47,16 @@ num_mag = {
 			'mươi':'10',
 			'trăm':'100',
 			'ngàn':'1000',
+			'nghìn':'1000',
 			'triệu':'1000000'
+			}
+
+num_mag_level = {
+			'mươi':1,
+			'trăm':2,
+			'ngàn':3,
+			'nghìn':3,
+			'triệu':5
 			}
 
 sub_num_mag = ['lẻ','linh']

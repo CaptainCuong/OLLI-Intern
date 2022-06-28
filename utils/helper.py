@@ -1,6 +1,6 @@
 import torch
 
-from .token import flt, num, num_mag, post_num, sub_num_mag, unit
+from .token import flt, num, num_mag, post_num, sub_num_mag, unit, num_mag_level, hard
 
 
 '''
@@ -56,41 +56,68 @@ def clean_num(words, embedding_model, label_model):
     # Get labels
     label = label_model(pad_string.unsqueeze(dim=0))
     label = label.argmax(dim=2)[0]
-
     i = 0
     rt = []
+    print('Detected number phrases:\n')
     while i < len(words):
-        if (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag) and label[i].item() == 1:
+        # Num phrase must start with 'num'
+        if (words[i] in num) and (words[i] not in hard or words[i] in hard and label[i].item() == 1):
             st = i
-            while i < len(words) and (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag):
+            while i < len(words) and (words[i] not in hard or words[i] in hard and label[i].item() == 1) and (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag):
                 i += 1
             lt = i
+            print(' '.join(words[st:lt]),'\n')
             rt.append(lit2num(words[st:lt]))
             i -= 1
+        elif words[i] in post_num:
+            print(str(words[i]),'\n')
+            rt.append(str(post_num[words[i]]))
         else:
             rt.append(words[i])
         i += 1
+    # print('-'*50)
     return ' '.join(rt), ' '.join(['num' if lb == 1 else 'unknown' for lb in label[:len(words)]])
 
 def lit2num(words):
     i = 0
-    stk = [0]
+    # A stack contains (value, level), level: level of magnitude
+    stk = [(0,0)]
     # words = words.split()
     swap_flt(words)
+    max_num_mag = 0
     while i < len(words):
-        if words[i] in num:
+        if words[i] in num and words[i] != 'mười':
             num_con = []
-            while i < len(words) and words[i] in num:
-                num_con.append(num[words[i]])
+            level = 0
+            while i < len(words) and words[i] in num|post_num:
+                num_con.append(num[words[i]] if words[i] in num else post_num[words[i]])
                 i += 1
+                level += 1
             i -= 1
-            stk.append(float(''.join(num_con)))
-
+            stk.append((float(''.join(num_con)), level))
+        elif words[i] in post_num:
+            stk.append((float(post_num[words[i]]),0))
+        elif words[i] in num and words[i] == 'mười':
+            if i+1 < len(words) and words[i] in num|post_num:
+                dummy = float(num[words[i+1]]) if words[i+1] in num else float(post_num[words[i+1]])
+                stk.append((10+float(dummy), 1))
+            else:
+                stk.append((float(10),2))
+            i += 1
         elif words[i] in num_mag:
-            stk[-1] = stk[-1]*float(num_mag[words[i]])
-
+            if max_num_mag < num_mag_level[words[i]]:
+                stk = [(sum([num[0] for num in stk])*float(num_mag[words[i]]), num_mag_level[words[i]])]
+                max_num_mag = num_mag_level[words[i]]
+            else:
+                j = len(stk)-1
+                while j > -1:
+                    if stk[j][1] > num_mag_level[words[i]]:
+                        break;
+                    j -= 1
+                j += 1
+                stk[j:] = [(sum([num[0] for num in stk[j:]])*float(num_mag[words[i]]), num_mag_level[words[i]])]
         elif words[i] in flt:
-            stk[-1] += float(flt[words[i]])
-
+            stk[-1] = (stk[-1]+float(flt[words[i]]), stk[-1][1])
         i += 1
-    return str(sum(stk))
+        # print(stk)
+    return str(sum([num[0] for num in stk]))

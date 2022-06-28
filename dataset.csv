@@ -17,16 +17,38 @@ tắt kể truyện sau ba mươi phút,unknown unknown unknown unknown num num_
 kể truyện thạch sùng,unknown unknown unknown unknown
 kể truyện thánh gióng,unknown unknown unknown unknown
 kể truyện sự tích cây vú sữa,unknown unknown unknown unknown unknown unknown unknown
+không biết,unknown unknown
+không làm gì,unknown unknown unknown
+không sao cả,unknown unknown unknown
 kể truyện trí khôn của ta đây,unknown unknown unknown unknown unknown unknown unknown
 năm hai ngàn không trăm hai mươi hai,unknown num num_mag num num_mag num num_mag num
 bật bờ lu tút,unknown unknown unknown unknown
 tăng âm lượng lên mức mười,unknown unknown unknown unknown unknown num
 giảm âm lượng về mức bốn,unknown unknown unknown unknown unknown num
 tắt bờ lu tút,unknown unknown unknown unknown
+bảy tháng năm hai không hai hai là thứ mấy,num unknown num num num num num unknown unknown unknown
+bốn tháng một hai không hai hai là thứ mấy,num unknown num num num num num unknown unknown unknown
+ba tháng hai hai không hai hai là thứ mấy,num unknown num num num num num unknown unknown unknown
 ba mươi tháng tư hai không hai hai là thứ mấy,num num_mag unknown post_num num num num num unknown unknown unknown
+mười tháng tư hai không hai hai là thứ mấy,num unknown post_num num num num num unknown unknown unknown
+hai mươi ba tháng bảy hai không hai mốt là thứ mấy,num num_mag num unknown num num num num num unknown unknown unknown
+hai mươi hai tháng bảy hai không hai mốt là thứ mấy,num num_mag num unknown num num num num num unknown unknown unknown
+mười sáu tháng tám hai không hai hai là thứ mấy,num num unknown num num num num num unknown unknown unknown
 tết nguyên đán hai không hai ba ngày dương bao nhiêu,unknown unknown unknown num num num num unknown unknown unknown unknown
 năm hai ngàn không trăm hai mươi mốt,unknown num num_mag num num_mag num num_mag post_num
 tháng này có ba mốt ngày không,unknown unknown unknown num post_num unknown unknown
+tháng này có ba mươi mốt ngày không,unknown unknown unknown num num_mag post_num unknown unknown
+tháng này có ba mươi hai ngày không,unknown unknown unknown num num_mag num unknown unknown
+tháng này có hai mươi ba ngày không,unknown unknown unknown num num_mag num unknown unknown
+tháng này có hai mươi chín ngày không,unknown unknown unknown num num_mag num unknown unknown
+mười,num
+mười một,num num
+mười hai,num num
+mười lăm năm,num post_num unknown
+ông mười,unknown unknown
+mười chín tuổi,num num unknown
+mười sáu năm sau,num num unknown unknown
+năm lăm năm,num post_num unknown
 con vịt kêu như thế nào,unknown unknown unknown unknown unknown unknown
 thứ sáu ngày mười ba,unknown num unknown num_mag num
 con bò kêu sao,unknown unknown unknown unknown
@@ -54,6 +76,12 @@ nhiệt độ ngoài trời quận ba hiện tại là bao nhiêu,unknown unknow
 hiền hồ là ai,unknown unknown unknown unknown
 dịch câu tao không sợ ra tiếng hán,unknown unknown unknown unknown unknown unknown unknown unknown
 tám bình cộng mười hai bằng bao nhiêu,num unknown unknown num num unknown unknown unknown
+mười bình cộng sáu mươi hai bằng bao nhiêu,num unknown unknown num num_mag num unknown unknown unknown
+sáu bình cộng bảy mươi ba bằng bao nhiêu,num unknown unknown num num_mag num unknown unknown unknown
+tám mươi chín bình cộng bảy bằng bao nhiêu,num num_mag num unknown unknown num unknown unknown unknown
+bốn mươi lăm bình cộng bảy bảy bằng bao nhiêu,num num_mag num unknown unknown num num unknown unknown unknown
+hai nhân ba cộng một bằng mười đúng không,num unknown num unknown num unknown num  unknown unknown
+hai mươi sáu nhân chín cộng ba bằng bảy đúng không,num num_mag num unknown num unknown num unknown num  unknown unknown
 hai triệu rưỡi,num num_mag flt
 ba triệu rưỡi,num num_mag flt
 ba triệu rưỡi,num num_mag flt
@@ -104,12 +132,31 @@ mở bót cát giải trí,unknown unknown unknown unknown unknown
 gọi tôi dậy vào lúc bảy giờ ngày mai,unknown unknown unknown unknown unknown num unit unknown unknown
 nhắc tôi đi ngủ vào lúc mười một giờ đêm nay,unknown unknown unknown unknown unknown unknown num num unit unknown unknown
 con ba ba,unknown unknown unknown
+số ba ba,unknown num num
 ba ba,num num
 bốn bốn,num num
 năm trăm năm sau,num num_mag unknown unknown
 năm trăm năm mươi năm sau,num num_mag num num_mag unknown unknown
+mười năm sau,num unknown unknown
+chín năm sau,num unknown unknown
+sau mười năm,unknown num unknown
+sau chín năm,unknown num unknown
+sau hai mươi năm tuổi,unknown num num_mag unknown unknown
+hai triệu năm sau,num num_mag unknown unknown
+ba mươi bốn năm sau,num num_mag num unknown unknown
+sau vài năm,unknown unknown unknown
+sau hơn hai mươi năm,unknown unknown num num_mag unknown
+năm trăm năm mươi năm sau,num num_mag num num_mag unknown unknown
 nhắc tôi đi tập thể dục vào lúc tám giờ tối nay,unknown unknown unknown unknown unknown unknown unknown unknown num unit unknown unknown
 ba mươi phút nữa nhắc tôi phơi đồ,num num_mag unit unknown unknown unknown unknown unknown
+dì bảy đang nấu ăn,unknown unknown unknown unknown unknown
+dì hai đang nấu ăn,unknown unknown unknown unknown unknown
+dì tư đang nấu ăn,unknown unknown unknown unknown unknown
+dì bốn đang nấu ăn,unknown unknown unknown unknown unknown
+hai bạn đang chơi cùng cô năm,unknown unknown unknown unknown unknown unknown unknown
+cô hai năm nay bốn mươi lăm tuổi,unknown unknown unknown unknown num num_mag post_num unknown
+ông ba năm nay tám mươi sáu tuổi,unknown unknown unknown unknown num num_mag num unknown
+dượng tư năm nay ba mươi chín tuổi,unknown unknown unknown unknown num num_mag num unknown
 nhắc tôi có hẹn vào lúc bảy giờ tối nay,unknown unknown unknown unknown unknown unknown num unit unknown unknown
 nhắc tôi nấu cơm vào lúc mười một giờ,unknown unknown unknown unknown unknown unknown num num unit
 nhắc tôi đi chơi vào lúc chín giờ,unknown unknown unknown unknown unknown unknown num unit
@@ -123,4 +170,13 @@ hiền hồ là ai,unknown unknown unknown unknown
 dịch câu tao không sợ ra tiếng hán,unknown unknown unknown unknown unknown unknown unknown unknown
 tám bình cộng mười hai bằng bao nhiêu,num unknown unknown num num unknown unknown unknown
 triệu chứng hậu cô vít,unknown unknown unknown unknown unknown
+hai triệu triệu chứng của bệnh nan y,num num_mag unknown unknown unknown unknown unknown unknown
+ba triệu triệu chứng của bệnh lao phổi,num num_mag unknown unknown unknown unknown unknown unknown
+chín triệu không trăm linh hai triệu chứng của bệnh lao phổi,num num_mag num num_mag sub_num_mag num unknown unknown unknown unknown unknown unknown
+chín triệu không trăm ba mươi nghìn triệu chứng của bệnh lao phổi,num num_mag num num_mag num num_mag num_mag unknown unknown unknown unknown unknown unknown
 quê hương của nô bi ta ở đâu,unknown unknown unknown unknown unknown unknown unknown unknown
+chín triệu không trăm ba mươi nghìn,num num num num num num num
+ba mươi mốt nghìn bảy trăm linh hai,num num_mag post_num num_mag num num_mag sub_num_mag num
+một trăm ngàn hai trăm mười bốn năm,num num_mag num_mag num num_mag num num unknown
+bảy mươi mốt ngàn hai trăm lẻ ba,num num_mag post_num num_mag num num_mag sub_num_mag num
+chín mươi lăm nghìn bảy trăm năm mươi mốt,num num_mag post_num num_mag num num_mag num num_mag post_num
