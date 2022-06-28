@@ -56,14 +56,10 @@ def clean_num(words, embedding_model, label_model):
     # Get labels
     label = label_model(pad_string.unsqueeze(dim=0))
     label = label.argmax(dim=2)[0]
-    print(label.size())
 
     i = 0
     rt = []
-    print(len(words))
-    print(len(label))
     while i < len(words):
-        print(i)
         if (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag) and label[i].item() == 1:
             st = i
             while i < len(words) and (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag):
@@ -74,7 +70,7 @@ def clean_num(words, embedding_model, label_model):
         else:
             rt.append(words[i])
         i += 1
-    return ' '.join(rt)
+    return ' '.join(rt), ' '.join(['num' if lb == 1 else 'unknown' for lb in label[:len(words)]])
 
 def lit2num(words):
     i = 0
