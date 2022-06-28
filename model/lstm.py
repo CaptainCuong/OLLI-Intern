@@ -11,32 +11,34 @@ else:
     device = torch.device("cpu")
 
 class NER_LSTMNet(nn.Module):
-    # def __init__(self, vocab_size, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
     def __init__(self, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
         super(NER_LSTMNet, self).__init__()
         self.output_size = output_size
+        self.embedding_dim = embedding_dim
         self.n_layers = n_layers
         self.hidden_dim = hidden_dim
         self.seq_len = seq_len
         self.batch_size = batch_size
         self.gpu = torch.cuda.is_available()
- 
-        self.lstm_encode = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
-        self.lstm_decode = nn.LSTM(output_size, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
-        self.dropout = nn.Dropout(drop_prob)
-        self.fclst = [nn.Linear(hidden_dim, output_size) for i in range(seq_len)]
+        
+        if n_layers > 1:
+            self.lstm_encode = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
+            self.lstm_decode = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
+        else:
+            self.lstm_encode = nn.LSTM(embedding_dim, hidden_dim, n_layers, batch_first=True)
+            self.lstm_decode = nn.LSTM(embedding_dim, hidden_dim, n_layers, batch_first=True)
+        self.fclst = nn.ModuleList([nn.Linear(hidden_dim, output_size) for i in range(seq_len)])
         self.sigmoid = nn.Sigmoid()
-        self.softmaxlst = [nn.Softmax(2) for i in range(seq_len)]
+        self.softmaxlst = nn.ModuleList([nn.Softmax(2) for i in range(seq_len)])
  
     def forward(self, x):
         '''
         x: sequence of encoded words
         shape of x: [batch_size, seq_len]
-
         hidden: initial hidden
         '''
         assert len(x.size()) == 3, 'Input must have 3 dimension (batch_size, seq_len, dim)'
-        assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified'
+        assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified: expected %d, but got %d'%(self.seq_len, x.size(1))
         self.batch_size = x.size(0)
         # ENCODE
         x = x.type(torch.FloatTensor).to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
@@ -45,18 +47,12 @@ class NER_LSTMNet(nn.Module):
         
         # DECODE
         pred_entity = []
-        in_decode = torch.zeros([self.batch_size, 1, self.output_size])
-        out_decode = None
+        out_decode = torch.zeros([self.batch_size, 1, self.embedding_dim])
         for i in range(self.seq_len):
-            out_decode, hidden = self.lstm_decode(in_decode, hidden)
-            out_decode = self.fclst[i](out_decode)
-            out_decode = self.softmaxlst[i](out_decode)
-            pred_entity.append(out_decode)
-
-            in_decode = torch.zeros([self.batch_size, 1, self.output_size])
-            # max_ind = torch.argmax(out_decode, dim = 2)
-            # for i in range(self.batch_size):
-            #     in_decode[i][0][max_ind[i][0]] = 1
+            out_decode, hidden = self.lstm_decode(out_decode, hidden)
+            pred = self.fclst[i](out_decode)
+            pred = self.softmaxlst[i](pred)
+            pred_entity.append(pred)
  
         return torch.cat(pred_entity, dim = 1)
     
@@ -99,7 +95,7 @@ class NER_LSTMNet(nn.Module):
                 a = a[0].cuda(), a[1].cuda()
             b = self(a[0])
             x = ((a[1] == b.argmax(dim=2))).view(-1)
-            print('Epoch %d:\nLoss: %f\nAccuracy: %d\n-----------\n'%(i,loss.item(),x.sum().item()/x.shape[0]))
+            print('Epoch %d:\nLoss: %f\nAccuracy: %f\n-----------\n'%(i,loss.item(),x.sum().item()/x.shape[0]))
 
     def eval(self, dataloader, criterion):
         score = []

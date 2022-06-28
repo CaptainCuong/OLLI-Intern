@@ -4,7 +4,7 @@ năm hai ngàn không trăm hai bốn,unknown num num_mag num num_mag num num
 năm hai ngàn không trăm hai hai,unknown num num_mag num num_mag num num
 mở danh sách nhạc yêu thích,unknown unknown unknown unknown unknown unknown
 mở nhạc rì mít,unknown unknown unknown unknown
-mở nhạc không lời trong hai mươi phút,unknown unknown num unknown unknown num num_mag unknown
+mở nhạc không lời trong hai mươi phút,unknown unknown unknown unknown unknown num num_mag unknown
 thêm bài đang phát vào danh sách nhạc yêu thích,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
 tắt nhạc sau một giờ,unknown unknown unknown num unit
 chỉnh nhiệt độ máy lạnh hai bốn độ,unknown unknown unknown unknown unknown num num unknown
@@ -54,7 +54,19 @@ nhiệt độ ngoài trời quận ba hiện tại là bao nhiêu,unknown unknow
 hiền hồ là ai,unknown unknown unknown unknown
 dịch câu tao không sợ ra tiếng hán,unknown unknown unknown unknown unknown unknown unknown unknown
 tám bình cộng mười hai bằng bao nhiêu,num unknown unknown num num unknown unknown unknown
-triệu chứng hậu cô vít,num_mag unknown unknown unknown unknown
+hai triệu rưỡi,num num_mag flt
+ba triệu rưỡi,num num_mag flt
+ba triệu rưỡi,num num_mag flt
+bốn triệu rưỡi,num num_mag flt
+hai triệu rưỡi,num num_mag flt
+ba triệu năm trăm sáu mươi nghìn đồng,num num_mag num num_mag num num_mag num_mag unknown
+hai triệu năm trăm bảy mươi nghìn đồng,num num_mag num num_mag num num_mag num_mag unknown
+chín triệu bốn trăm bảy mươi nghìn đồng,num num_mag num num_mag num num_mag num_mag unknown
+triệu chứng hậu cô vít,unknown unknown unknown unknown unknown
+triệu chứng căn bệnh,unknown unknown unknown unknown
+triệu chứng viêm xoang,unknown unknown unknown unknown
+triệu chứng ho lao,unknown unknown unknown unknown
+triệu chứng viêm phổi,unknown unknown unknown unknown
 quê hương của nô bi ta ở đâu,unknown unknown unknown unknown unknown unknown unknown unknown
 mở danh sách nhạc yêu thích,unknown unknown unknown unknown unknown unknown
 mở nhạc rì mít,unknown unknown unknown unknown
@@ -91,6 +103,11 @@ mở bót cát thì thầm,unknown unknown unknown unknown unknown
 mở bót cát giải trí,unknown unknown unknown unknown unknown
 gọi tôi dậy vào lúc bảy giờ ngày mai,unknown unknown unknown unknown unknown num unit unknown unknown
 nhắc tôi đi ngủ vào lúc mười một giờ đêm nay,unknown unknown unknown unknown unknown unknown num num unit unknown unknown
+con ba ba,unknown unknown unknown
+ba ba,num num
+bốn bốn,num num
+năm trăm năm sau,num num_mag unknown unknown
+năm trăm năm mươi năm sau,num num_mag num num_mag unknown unknown
 nhắc tôi đi tập thể dục vào lúc tám giờ tối nay,unknown unknown unknown unknown unknown unknown unknown unknown num unit unknown unknown
 ba mươi phút nữa nhắc tôi phơi đồ,num num_mag unit unknown unknown unknown unknown unknown
 nhắc tôi có hẹn vào lúc bảy giờ tối nay,unknown unknown unknown unknown unknown unknown num unit unknown unknown

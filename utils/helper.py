@@ -1,3 +1,5 @@
+import torch
+
 from .token import flt, num, num_mag, post_num, sub_num_mag, unit
 
 
@@ -42,12 +44,27 @@ def swap_flt_ind(words):
         if words[i] == 'flt':
             yield i
 
-def clean_num(words):
+def clean_num(words, embedding_model, label_model):
+    words = words.split()
+
+    # Convert and pad for string
+    pad_string = [torch.tensor(embedding_model.get_vector(word).reshape(1,-1)) for word in words]
+    for i in range(len(words), 13):
+        pad_string.append(torch.zeros((1, 400)))
+    pad_string = torch.cat(pad_string, dim=0)
+
+    # Get labels
+    label = label_model(pad_string.unsqueeze(dim=0))
+    label = label.argmax(dim=2)[0]
+    print(label.size())
+
     i = 0
     rt = []
-    words = words.split()
+    print(len(words))
+    print(len(label))
     while i < len(words):
-        if words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag:
+        print(i)
+        if (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag) and label[i].item() == 1:
             st = i
             while i < len(words) and (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag):
                 i += 1
