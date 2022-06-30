@@ -1,14 +1,6 @@
 import torch
 import torch.nn as nn
 
-# torch.cuda.is_available() checks and returns a Boolean True if a GPU is available, else it'll return False
-is_cuda = torch.cuda.is_available()
-
-# If we have a GPU available, we'll set our device to GPU. We'll use this device variable later in our code.
-if is_cuda:
-    device = torch.device("cuda")
-else:
-    device = torch.device("cpu")
 
 class NER_LSTMNet(nn.Module):
     def __init__(self, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
@@ -103,3 +95,5 @@ class NER_LSTMNet(nn.Module):
         for stn, label in dataloader:
             score += [criterion(self(stn), label)]
         return sum(score.item())/len(score)
+
+class NER_Bert(nn.Module)

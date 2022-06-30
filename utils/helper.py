@@ -1,6 +1,7 @@
 import torch
 
-from .token import flt, num, num_mag, post_num, sub_num_mag, unit, num_mag_level, hard
+from .token import (flt, hard, num, num_mag, num_mag_level, post_num,
+                    sub_num_mag, unit)
 
 
 '''
