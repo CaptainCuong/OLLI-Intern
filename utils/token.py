@@ -8,7 +8,7 @@ for key in token2idx.keys():
 	vec[token2idx[key]] = 1
 	token2vec[key] = vec
 
-hard = ['không','triệu','năm','ba']
+hard = ['không','triệu','năm','ba','hai','bốn','sáu','chín']
 
 num = {
 		'không':'0',

@@ -44,7 +44,10 @@ strings = ['ba triệu năm trăm sáu mươi nghìn đồng',
             'chín triệu không trăm ba mươi nghìn',
             'năm triệu chín trăm hai mươi nghìn',
             'có vui không',
-            'ba đi làm lúc ba giờ chiều'
+            'ba đi làm lúc ba giờ chiều',
+            'ba em bắt con ba ba lúc ba giờ chiều',
+            'tui ăn chín quả trứng chín lúc chín giờ sáng',
+            'anh hai ăn trưa lúc hai giờ chiều'
             ]
 
 
