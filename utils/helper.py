@@ -1,7 +1,7 @@
 import torch
 
 from .token import (flt, hard, num, num_mag, num_mag_level, post_num,
-                    sub_num_mag, unit)
+                    sub_num_mag, unit, spoken_alpb)
 
 
 '''
@@ -45,7 +45,7 @@ def swap_flt_ind(words):
         if words[i] == 'flt':
             yield i
 
-def clean_num(words, embedding_model, label_model):
+def clean_num_abb(words, embedding_model, label_model):
     words = words.split()
 
     # Convert and pad for string
@@ -57,9 +57,10 @@ def clean_num(words, embedding_model, label_model):
     # Get labels
     label = label_model(pad_string.unsqueeze(dim=0))
     label = label.argmax(dim=2)[0]
+    # print(label)
     i = 0
     rt = []
-    print('Detected number phrases:\n')
+    print('Detected number/abbreviation phrases:\n')
     while i < len(words):
         # Num phrase must start with 'num'
         if (words[i] in num) and (words[i] not in hard or words[i] in hard and label[i].item() == 1):
@@ -73,11 +74,27 @@ def clean_num(words, embedding_model, label_model):
         elif words[i] in post_num:
             print(str(words[i]),'\n')
             rt.append(str(post_num[words[i]]))
+        elif words[i] in spoken_alpb:
+            st = i
+            while i < len(words) and words[i] in spoken_alpb:
+                i += 1
+            lt = i
+            if lt-st >= 2:
+                rt.append(merge_abb(words[st:lt]))
+            i -= 1
         else:
             rt.append(words[i])
         i += 1
-    # print('-'*50)
-    return ' '.join(rt), ' '.join(['num' if lb == 1 else 'unknown' for lb in label[:len(words)]])
+    retlb = []
+    for lb in label[:len(words)]:
+        if lb == 1:
+            retlb.append('num')
+        elif lb == 2:
+            retlb.append('unknown')
+        elif lb == 3:
+            retlb.append('abb')
+    # ['num' if lb == 1 else 'unknown' for lb in label[:len(words)]]
+    return ' '.join(rt), ' '.join(retlb)
 
 def lit2num(words):
     i = 0
@@ -122,3 +139,6 @@ def lit2num(words):
         i += 1
         # print(stk)
     return str(sum([num[0] for num in stk]))
+
+def merge_abb(words):
+    return ''.join(spoken_alpb[word] for word in words)
