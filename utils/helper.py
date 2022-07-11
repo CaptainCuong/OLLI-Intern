@@ -1,7 +1,8 @@
 import torch
 
-from .token import (flt, hard, num, num_mag, num_mag_level, post_num,
-                    sub_num_mag, unit, spoken_alpb)
+from .token import (abb_prior, abbreviation_list, flt, hard, num, num_mag,
+                    num_mag_level, post_num, pronoun, spoken_alpb, sub_num_mag,
+                    unit)
 
 
 '''
@@ -46,20 +47,20 @@ def swap_flt_ind(words):
             yield i
 
 def clean_num_abb(words, embedding_model, label_model):
-    words = words.split()
+    words = words.lower().split()
 
     # Convert and pad for string
     pad_string = [torch.tensor(embedding_model.get_vector(word).reshape(1,-1)) for word in words]
     for i in range(len(words), 13):
         pad_string.append(torch.zeros((1, 400)))
-    pad_string = torch.cat(pad_string, dim=0)
+    pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
     # Get labels
-    label = label_model(pad_string.unsqueeze(dim=0))
+    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=13, dim = 4)
     label = label.argmax(dim=2)[0]
-    # print(label)
     i = 0
     rt = []
+    rt_prclabel = []
     print('Detected number/abbreviation phrases:\n')
     while i < len(words):
         # Num phrase must start with 'num'
@@ -68,23 +69,70 @@ def clean_num_abb(words, embedding_model, label_model):
             while i < len(words) and (words[i] not in hard or words[i] in hard and label[i].item() == 1) and (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag):
                 i += 1
             lt = i
-            print(' '.join(words[st:lt]),'\n')
-            rt.append(lit2num(words[st:lt]))
+            if lt-st >= 2:
+                print(' '.join(words[st:lt]),'\n')
+                rt.append(lit2num(words[st:lt]))
+                rt_prclabel.extend(['num' for _ in range(lt-st)])
+            elif i > 0 and words[i-1] in pronoun:
+                rt.append(words[st])
+                rt_prclabel.append('unknown')
+            elif label[st].item() == 1:
+                rt.append(lit2num(words[st:lt]))
+                rt_prclabel.extend(['num' for _ in range(lt-st)])
+            else:
+                rt.append(words[st:lt])
+                rt_prclabel.extend('unknown' for _ in range(lt-st))
             i -= 1
         elif words[i] in post_num:
             print(str(words[i]),'\n')
             rt.append(str(post_num[words[i]]))
+            rt_prclabel.append('num')
         elif words[i] in spoken_alpb:
             st = i
             while i < len(words) and words[i] in spoken_alpb:
                 i += 1
             lt = i
             if lt-st >= 2:
-                rt.append(merge_abb(words[st:lt]))
+                # Ex: 'công ty ép pi ti'
+                if words[st] in ['ti', 'ty'] and st > 0 and words[st-1] == 'công':
+                    rt.append(words[st])
+                    rt_prclabel.append('unknown')
+                    st += 1
+                    rt.append(merge_abb(words[st:lt]))
+                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
+                # Ex: 'tập đoàn ép pi ti', 'đại học ép pi ti'
+                elif any(prior_exist>=0 for prior_exist in [' '.join(words[:st]+words[lt:]).find(x) for x in abb_prior]):
+                    rt.append(merge_abb(words[st:lt]))
+                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
+                # Ex: 'sơn tùng em ti pi'
+                else:
+                    # Abbreviation exists in database
+                    mw = merge_abb(words[st:lt])
+                    if mw in abbreviation_list[spoken_alpb[words[st]]]:
+                        rt.append(mw)
+                        rt_prclabel.extend(['abb' for _ in range(lt-st)])
+                    # Use model
+                    else:
+                        for j in range(st, lt):
+                            if label[j] != 3:
+                                if j > st:
+                                    rt.append(merge_abb(words[st:j]))
+                                    rt_prclabel.extend(['abb' for _ in range(j-st)])
+                                rt.append(words[j])
+                                rt_prclabel.append('unknown')
+                                st = j+1
+                        if lt > st:
+                            rt.append(merge_abb(words[st:lt]))
+                            rt_prclabel.extend(['abb' for _ in range(lt-st)])
+            else:
+                rt.append(words[i-1])
+                rt_prclabel.append('unknown')
             i -= 1
         else:
             rt.append(words[i])
+            rt_prclabel.append('unknown')
         i += 1
+
     retlb = []
     for lb in label[:len(words)]:
         if lb == 1:
@@ -93,7 +141,7 @@ def clean_num_abb(words, embedding_model, label_model):
             retlb.append('unknown')
         elif lb == 3:
             retlb.append('abb')
-    # ['num' if lb == 1 else 'unknown' for lb in label[:len(words)]]
+    # return ' '.join(rt), ' '.join(rt_prclabel)
     return ' '.join(rt), ' '.join(retlb)
 
 def lit2num(words):

@@ -66,7 +66,9 @@ unit = ('kí lô gam', 'kí', 'cây số',
 
 spoken_alpb = {
 	'ây':'a',
+	'a':'a',
 	'bê':'b',
+	'bờ':'b',
 	'bi':'b',
 	'xê':'c',
 	'xi':'c',
@@ -76,9 +78,14 @@ spoken_alpb = {
 	'i':'e',
 	'ép':'f',
 	'gờ':'g',
+	'chi':'g',
+	'tri':'g',
 	'hát':'h',
 	'hắc':'h',
+	'ách':'h',
+	'ai':'i',
 	'chây':'j',
+	'trây':'j',
 	'ca':'k',
 	'khây':'k',
 	'eo':'l',
@@ -92,6 +99,7 @@ spoken_alpb = {
 	'o':'o',
 	'pi':'p',
 	'pờ':'p',
+	'pê':'p',
 	'khiu':'q',
 	'qui':'q',
 	'a':'r',
@@ -101,9 +109,12 @@ spoken_alpb = {
 	'ti':'t',
 	'tờ':'t',
 	'ty':'t',
+	'tê':'t',
 	'diu':'u',
+	'u':'u',
 	'du':'u',
-	'u':'z',
+	'di':'z',
+	'dét':'z',
 	'vê':'v',
 	'vi':'v',
 	'đớp bồ diu':'w',
@@ -120,36 +131,38 @@ spoken_alpb = {
 	'di':'z'
 }
 
+word2phono = {'y': ['quai'], 'a': ['ây'], 'r': ['a', 'rờ'], 'b': ['bê', 'bờ', 'bi'], 'c': ['xi'], 'd': ['đi'], 'e': ['i'], 'f': [], 'g': ['chi', 'tri'], 'h': ['hắc', 'ách'], 'j': ['trây'], 'k': ['khây'], 'l': ['lờ'], 'm': ['mờ'], 'n': ['nờ'], 'o': ['ô', 'o'], 'p': ['pờ'], 'q': ['qui'], 's': ['sờ'], 't': ['tờ', 'ty', 'tê'], 'u': ['u', 'du'], 'z': ['dét'], 'v': ['vi'], 'w': ['đớp bồ du', 'đấp bồ diu', 'đấp bồ du', 'đớp liu', 'vê kép'], 'x': ['ít', 'xờ']}
+
 abbreviation_list = {
-	'a':('abc','acb','abb','anz','ai','afc','apec','adb','aws'),
-	'b':('bidv'),
-	'c':('cv','cocc','cia'),
+	'a':('abc','acb','abb','anz','ai','afc','adb','aws'),
+	'b':('bidv','bbc'),
+	'c':('cv','cocc','cia','cnn'),
 	'd':('dfid'),
 	'e':('epu'),
 	'f':('ftu','fbi','fao','fbi','flc'),
 	'g':('gpt'),
 	'h':('hsbc','hcm','hiv','hcmus','hcmut','hust','hup','hanu','hpu','hau','hlu','humg','hneu','nuae','hupes','hunre','huc','hmu','huph','hcma','hmu','hubt','hmtu'),
 	'i':('imf','iaea','icc','iom','iunc'),
-	'j':(''),
+	'j':(),
 	'k':('kfc','kpmg'),
 	'l':('lol','lgpt'),
 	'm':('mhb','mc','mb'),
 	'n':('nlp','nyu','ntn','nus','ntu'),
 	'o':('ocb','omg','oecd','opec'),
-	'p':(''),
+	'p':(),
 	'q':('qc'),
-	'r':(''),
+	'r':(),
 	's':('st','scb','shb','ssi'),
 	't':('tma','tm','tmu'),
 	'u':('utc','usth','uefa','un','unesco','unfpa','unhcr','unicef','unido'),
-	'v':('voh','vov','vng','vpb','vib','vbsp','vdb','vl','vnpt','vnu','vju','vj','viu','vnuuet','vnuued','vnuhus','vnuussh','vnuf','vnam','vnua','vwa'),
+	'v':('vpn','voh','vov','vng','vpb','vib','vbsp','vdb','vl','vnpt','vnu','vju','vj','viu','vnuuet','vnuued','vnuhus','vnuussh','vnuf','vnam','vnua','vwa'),
 	'w':('who','wb','wfp','wto'),
-	'x':(''),
-	'y':(''),
-	'z':('')
+	'x':(),
+	'y':(),
+	'z':()
 }
 
 pronoun = ('ông','bà','cô','dì','chú','bác','cậu','mợ','thím','anh','chị')
 
 abb_prior = ('nhóm', 'công ti', 'công ty', 'trường', 'học', 
-			'doanh nghiệp', 'đoàn', 'hội', 'chương trình')
+			'doanh nghiệp', 'đoàn', 'hội', 'chương trình', 'ngân hàng')

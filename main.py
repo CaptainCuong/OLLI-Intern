@@ -1,4 +1,5 @@
 import gensim
+import scikitplot as skplt
 from data import *
 from gensim.models import KeyedVectors
 from model import *
@@ -11,8 +12,9 @@ output_size = n_entity = 4
 embedding_dim = 400
 hidden_dim = 400
 n_layers = 1
-label_model = NER_LSTMNet(n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len=13)
-label_model.load_state_dict(torch.load('model.pt', map_location=torch.device('cpu')))
+device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+label_model = NER_LSTMNet(n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len=13).to(device)
+label_model.load_state_dict(torch.load('model.pt', map_location=device))
 
 # string1 = 'ba triệu năm trăm sáu mươi nghìn đồng'
 # string2 = 'con ba ba'
@@ -34,7 +36,7 @@ strings = [
             # 'mười bình cộng sáu mươi hai bằng bao nhiêu',
             # 'tháng này có hai mươi ba ngày phải không',
             # 'hai mươi chín năm sau',
-            # 'ba mươi hai năm sau',
+            'ba mươi hai năm sau',
             # 'sau vài năm',
             # 'năm hai ngàn không trăm linh bảy',
             # 'tết nguyên đán hai không hai bốn ngày dương bao nhiêu',
@@ -45,17 +47,30 @@ strings = [
             # 'chín triệu không trăm ba mươi nghìn',
             # 'năm triệu chín trăm hai mươi nghìn',
             # 'có vui không',
-            # 'ba đi làm lúc ba giờ chiều',
-            # 'ba em bắt con ba ba lúc ba giờ chiều',
-            # 'tui ăn chín quả trứng chín lúc chín giờ sáng',
-            # 'anh hai ăn trưa lúc hai giờ chiều',
+            'ba đi làm lúc ba giờ chiều',
+            'ba em bắt con ba ba lúc ba giờ chiều',
+            'tui ăn chín quả trứng chín lúc chín giờ sáng',
+            'anh hai ăn trưa lúc hai giờ chiều',
             'đi ăn ca ép xê',
             'tập đoàn vi en pi ti',
             'sơn tùng em ti pi',
             'ét ti sơn thạch',
             'ba công ty ép pi ti',
             'nộp xi vi cho công ti',
-            'ép pi ti di chuyển sang địa điểm mới'
+            'ép pi ti di chuyển sang địa điểm mới',
+            'trường đại học ép tê diu ở đâu',
+            'trường đại học hát xê mờ u tê',
+            'công ty vàng bạc ét xi chây',
+            'anh nhớ em tê tái',
+            'tổ chức đớp liu hát ô',
+            'anh ấy bị xi ai ây bắt',
+            'báo bi bi xi',
+            'đài xi en en',
+            'kĩ thuật mạng vi pi en',
+            'đớp liu hát ô',
+            'ngân hàng vê pê bê',
+            'ba ngân hàng trên đường nờ tờ mờ ca',
+            'ba con cá'
             ]
 
 

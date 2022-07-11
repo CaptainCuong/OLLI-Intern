@@ -149,11 +149,23 @@ sau hơn hai mươi năm,unknown unknown num num_mag unknown
 năm trăm năm mươi năm sau,num num_mag num num_mag unknown unknown
 nhắc tôi đi tập thể dục vào lúc tám giờ tối nay,unknown unknown unknown unknown unknown unknown unknown unknown num unit unknown unknown
 ba mươi phút nữa nhắc tôi phơi đồ,num num_mag unit unknown unknown unknown unknown unknown
+bốn mươi phút nữa nhắc tôi rửa chén,num num_mag unit unknown unknown unknown unknown unknown
+năm mươi phút nữa nhắc tôi rửa chén,num num_mag unit unknown unknown unknown unknown unknown
+sáu mươi phút nữa nhắc tôi rửa chén,num num_mag unit unknown unknown unknown unknown unknown
+bảy mươi phút nữa nhắc tôi rửa chén,num num_mag unit unknown unknown unknown unknown unknown
 dì bảy đang nấu ăn,unknown unknown unknown unknown unknown
+dì tám đang nấu bảy con cá,unknown unknown unknown unknown num unknown unknown
+dì chín đang nấu bảy con cá,unknown unknown unknown unknown num unknown unknown
+dì mười đang nấu bảy con cá,unknown unknown unknown unknown num unknown unknown
+dì ba đang nấu bảy con cá,unknown unknown unknown unknown num unknown unknown
+dì bốn đang nấu bảy con cá,unknown unknown unknown unknown num unknown unknown
+dì năm đang nấu bảy con cá,unknown unknown unknown unknown num unknown unknown
 dì hai đang nấu ăn,unknown unknown unknown unknown unknown
 dì tư đang nấu ăn,unknown unknown unknown unknown unknown
 dì bốn đang nấu ăn,unknown unknown unknown unknown unknown
 hai bạn đang chơi cùng cô năm,unknown unknown unknown unknown unknown unknown unknown
+chín người ăn quả trứng chín,num unknown unknown unknown unknown unknown
+ông chín ăn chin quả trứng chín,unknown unknown unknown num unknown unknown unknown
 cô hai năm nay bốn mươi lăm tuổi,unknown unknown unknown unknown num num_mag post_num unknown
 ông ba năm nay tám mươi sáu tuổi,unknown unknown unknown unknown num num_mag num unknown
 dượng tư năm nay ba mươi chín tuổi,unknown unknown unknown unknown num num_mag num unknown
@@ -180,6 +192,14 @@ ba mươi mốt nghìn bảy trăm linh hai,num num_mag post_num num_mag num num
 một trăm ngàn hai trăm mười bốn năm,num num_mag num_mag num num_mag num num unknown
 bảy mươi mốt ngàn hai trăm lẻ ba,num num_mag post_num num_mag num num_mag sub_num_mag num
 chín mươi lăm nghìn bảy trăm năm mươi mốt,num num_mag post_num num_mag num num_mag num num_mag post_num
+ba con cá,num unknown unknown
+bốn con cá,num unknown unknown
+năm con cá,num unknown unknown
+sáu con cá,num unknown unknown
+bảy con cá,num unknown unknown
+tám con cá,num unknown unknown
+mười con cá,num unknown unknown
+chín con cá,num unknown unknown
 ba tôi ăn cơm lúc ba giờ chiều,unknown unknown unknown unknown unknown num unknown unknown
 ba tôi ăn trưa lúc ba giờ chiều,unknown unknown unknown unknown unknown num unknown unknown
 tôi ăn quả trứng chín lúc chín giờ,unknown unknown unknown unknown unknown unknown num unknown
@@ -270,3 +290,39 @@ gem lờ o lờ,unknown abb abb abb
 chơi lờ o lờ,unknown abb abb abb
 trò chơi lờ o lờ hấp dẫn,unknown unknown abb abb abb unknown unknown
 nhóm lờ o lờ gồm những thành viên nào,unknown abb abb abb unknown unknown unknown unknown unknown
+ba công ty ép pê tê đang phát triển,num unknown unknown abb abb abb unknown unknown unknown
+ép lờ xê thanh hóa là công ty nào,abb abb abb unknown unknown unknown unknown unknown unknown
+trường đại học ép ti diu,unknown unknown unknown abb abb abb
+ngân hàng ét hát bê,unknown unknown abb abb abb
+ngân hàng hát ét bê xê,unknown unknown abb abb abb abb
+công ti phần mềm ti em ây,unknown unknown unknown unknown abb abb abb
+tổ chức y tế quốc tế đớp liu hát ô,unknown unknown unknown unknown unknown unknown abb abb abb abb
+tổ chức y tế quốc tế đớp liu tê ô,unknown unknown unknown unknown unknown unknown abb abb abb abb
+ngân hàng bi ai đi vi,unknown unknown abb abb abb abb
+cơ quan tình báo xi ai ây,unknown unknown unknown unknown abb abb abb
+hệ thống cam me ra xi xi ti vi,unknown unknown unknown unknown unknown abb abb abb abb
+ngành học xi ét,unknown unknown abb abb
+công nghệ ây ai đang phát triển,unknown unknown abb abb unknown unknown unknown
+máy tình bàn pi xi,unknown unknown unknown abb abb
+u e ép a,abb abb abb abb
+giải bóng rổ en bi ây,unknown unknown unknown abb abb abb
+giải bóng rổ vi bi ây,unknown unknown unknown abb abb abb
+giải bóng rổ xi bi ây,unknown unknown unknown abb abb abb
+công ty vi en tri,unknown unknown abb abb abb
+âu em chi thật bất ngờ,abb abb abb unknown unknown unknown
+hội nghị xi vi pi a,unknown unknown abb abb abb abb
+học pi ách đi,unknown abb abb abb
+rạp chiều phim xi chi vi,unknown unknown unknown abb abb abb
+u e hát,abb abb abb
+hát xê mờ,abb abb abb
+en eo pi,abb abb abb
+ngân hàng vê pê bê,unknown unknown abb abb abb
+ba ngân hàng trên đường nờ tờ mờ ca,num unknown unknown unknown unknown abb abb abb abb
+bốn ngân hàng trên đường nờ tờ mờ ca,num unknown unknown unknown unknown abb abb abb abb
+năm ngân hàng trên đường nờ tờ mờ ca,num unknown unknown unknown unknown abb abb abb abb
+sáu ngân hàng trên đường nờ tờ mờ ca,num unknown unknown unknown unknown abb abb abb abb
+bảy ngân hàng trên đường nờ tờ mờ ca,num unknown unknown unknown unknown abb abb abb abb
+ba công ty vi en tri,num unknown unknown abb abb abb
+bốn công ty vi en tri,num unknown unknown abb abb abb
+năm công ty vi en tri,num unknown unknown abb abb abb
+sáu công ty vi en tri,num unknown unknown abb abb abb

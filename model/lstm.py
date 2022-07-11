@@ -1,14 +1,6 @@
 import torch
 import torch.nn as nn
 
-# torch.cuda.is_available() checks and returns a Boolean True if a GPU is available, else it'll return False
-is_cuda = torch.cuda.is_available()
-
-# If we have a GPU available, we'll set our device to GPU. We'll use this device variable later in our code.
-if is_cuda:
-    device = torch.device("cuda")
-else:
-    device = torch.device("cpu")
 
 class NER_LSTMNet(nn.Module):
     def __init__(self, n_entity, output_size, embedding_dim, hidden_dim, n_layers, seq_len = 20, drop_prob=0.5, batch_size = 1):
@@ -19,7 +11,7 @@ class NER_LSTMNet(nn.Module):
         self.hidden_dim = hidden_dim
         self.seq_len = seq_len
         self.batch_size = batch_size
-        self.gpu = torch.cuda.is_available()
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
         if n_layers > 1:
             self.lstm_encode = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=drop_prob, batch_first=True)
@@ -41,13 +33,13 @@ class NER_LSTMNet(nn.Module):
         assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified: expected %d, but got %d'%(self.seq_len, x.size(1))
         self.batch_size = x.size(0)
         # ENCODE
-        x = x.type(torch.FloatTensor).to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+        x = x.type(torch.FloatTensor).to(self.device)
         hidden = self.init_hidden(self.batch_size)
         encode_out, hidden = self.lstm_encode(x, hidden)
         
         # DECODE
         pred_entity = []
-        out_decode = torch.zeros([self.batch_size, 1, self.embedding_dim])
+        out_decode = torch.zeros([self.batch_size, 1, self.embedding_dim]).to(self.device)
         for i in range(self.seq_len):
             out_decode, hidden = self.lstm_decode(out_decode, hidden)
             pred = self.fclst[i](out_decode)
@@ -58,8 +50,8 @@ class NER_LSTMNet(nn.Module):
     
     def init_hidden(self, batch_size):
         weight = next(self.parameters()).data
-        hidden = (weight.new(self.n_layers, batch_size, self.hidden_dim).zero_().to(device),
-                      weight.new(self.n_layers, batch_size, self.hidden_dim).zero_().to(device))
+        hidden = (weight.new(self.n_layers, batch_size, self.hidden_dim).zero_().to(self.device),
+                      weight.new(self.n_layers, batch_size, self.hidden_dim).zero_().to(self.device))
         return hidden
  
     def train(self, train_loader, epochs, batch_size, learning_rate, criterion, optimizer, clip):
