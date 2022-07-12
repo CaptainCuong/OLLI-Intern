@@ -83,6 +83,7 @@ spoken_alpb = {
 	'hát':'h',
 	'hắc':'h',
 	'ách':'h',
+	'hờ':'h',
 	'ai':'i',
 	'chây':'j',
 	'trây':'j',
@@ -141,12 +142,12 @@ abbreviation_list = {
 	'e':('epu'),
 	'f':('ftu','fbi','fao','fbi','flc'),
 	'g':('gpt'),
-	'h':('hsbc','hcm','hiv','hcmus','hcmut','hust','hup','hanu','hpu','hau','hlu','humg','hneu','nuae','hupes','hunre','huc','hmu','huph','hcma','hmu','hubt','hmtu'),
+	'h':('htv','hsbc','hcm','hiv','hcmus','hcmut','hust','hup','hanu','hpu','hau','hlu','humg','hneu','nuae','hupes','hunre','huc','hmu','huph','hcma','hmu','hubt','hmtu'),
 	'i':('imf','iaea','icc','iom','iunc'),
 	'j':(),
 	'k':('kfc','kpmg'),
 	'l':('lol','lgpt'),
-	'm':('mhb','mc','mb'),
+	'm':('mhb','mc','mb','mtp'),
 	'n':('nlp','nyu','ntn','nus','ntu'),
 	'o':('ocb','omg','oecd','opec'),
 	'p':(),
@@ -165,4 +166,4 @@ abbreviation_list = {
 pronoun = ('ông','bà','cô','dì','chú','bác','cậu','mợ','thím','anh','chị')
 
 abb_prior = ('nhóm', 'công ti', 'công ty', 'trường', 'học', 
-			'doanh nghiệp', 'đoàn', 'hội', 'chương trình', 'ngân hàng')
+			'doanh nghiệp', 'đoàn', 'hội', 'chương trình', 'ngân hàng','cửa hàng')

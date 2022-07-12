@@ -141,8 +141,98 @@ def clean_num_abb(words, embedding_model, label_model):
             retlb.append('unknown')
         elif lb == 3:
             retlb.append('abb')
-    # return ' '.join(rt), ' '.join(rt_prclabel)
+        else:
+            retlb.append('padding')
+    #assert len(words) == len(rt_prclabel), 'Len of label is not consistent with that of sentence. '+' '.join(rt)+'\nLen of sentence:%d'%(len(words))+'\nLen of label:%d'%(len(rt_prclabel))
+    #return ' '.join(rt), ' '.join(rt_prclabel)
+    assert len(words) == len(retlb), 'Len of label is not consistent with that of sentence. '+' '.join(rt)+'\nLen of sentence:%d'%(len(words))+'\nLen of label:%d'%(len(retlb))
     return ' '.join(rt), ' '.join(retlb)
+
+def clean_abb(words, embedding_model, label_model):
+    words = words.lower().split()
+
+    # Convert and pad for string
+    pad_string = [torch.tensor(embedding_model.get_vector(word).reshape(1,-1)) for word in words]
+    for i in range(len(words), 13):
+        pad_string.append(torch.zeros((1, 400)))
+    pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
+
+    # Get labels
+    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=13, dim = 4)
+    label = label.argmax(dim=2)[0]
+    i = 0
+    rt = []
+    rt_prclabel = []
+    print('Detected number/abbreviation phrases:\n')
+    while i < len(words):
+        # Num phrase must start with 'num'
+        if (words[i] in num) and (words[i] not in hard or words[i] in hard and label[i].item() == 1):
+            st = i
+            while i < len(words) and (words[i] not in hard or words[i] in hard and label[i].item() == 1) and (words[i] in num | post_num | flt | num_mag or words[i] in sub_num_mag):
+                i += 1
+            lt = i
+            if lt-st >= 2:
+                print(' '.join(words[st:lt]),'\n')
+                rt.append(lit2num(words[st:lt]))
+                rt_prclabel.extend(['num' for _ in range(lt-st)])
+            elif i > 0 and words[i-1] in pronoun:
+                rt.append(words[st])
+                rt_prclabel.append('unknown')
+            elif label[st].item() == 1:
+                rt.append(lit2num(words[st:lt]))
+                rt_prclabel.extend(['num' for _ in range(lt-st)])
+            else:
+                rt.append(words[st:lt])
+                rt_prclabel.extend('unknown' for _ in range(lt-st))
+            i -= 1
+        elif words[i] in post_num:
+            print(str(words[i]),'\n')
+            rt.append(str(post_num[words[i]]))
+            rt_prclabel.append('num')
+        elif words[i] in spoken_alpb:
+            st = i
+            while i < len(words) and words[i] in spoken_alpb:
+                i += 1
+            lt = i
+            if lt-st >= 3:
+                # Ex: 'công ty ép pi ti'
+                if words[st] in ['ti', 'ty'] and st > 0 and words[st-1] == 'công':
+                    rt.append(words[st])
+                    rt_prclabel.append('unknown')
+                    st += 1
+                    rt.append(merge_abb(words[st:lt]))
+                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
+                else:
+                    # Abbreviation exists in database
+                    mw = merge_abb(words[st:lt])
+                    rt.append(mw)
+                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
+            elif lt-st == 2 and ' '.join(words[st:lt]) != 'anh em':
+                mw = merge_abb(words[st:lt])
+                rt.append(mw)
+                rt_prclabel.extend(['abb' for _ in range(lt-st)])
+            else:
+                rt.append(words[i-1])
+                rt_prclabel.append('unknown')
+            i -= 1
+        else:
+            rt.append(words[i])
+            rt_prclabel.append('unknown')
+        i += 1
+
+    retlb = []
+    for lb in label[:len(words)]:
+        if lb == 1:
+            retlb.append('num')
+        elif lb == 2:
+            retlb.append('unknown')
+        elif lb == 3:
+            retlb.append('abb')
+        else:
+            retlb.append('padding')
+    assert len(words) == len(rt_prclabel), 'Len of label is not consistent with that of sentence. '+' '.join(rt)+'\nLen of sentence:%d'%(len(words))+'\nLen of label:%d'%(len(rt_prclabel))
+    return ' '.join(rt), ' '.join(rt_prclabel)
+
 
 def lit2num(words):
     i = 0
@@ -190,3 +280,9 @@ def lit2num(words):
 
 def merge_abb(words):
     return ''.join(spoken_alpb[word] for word in words)
+ 
+'''
+số lượng từ pâ >=3, phía trước ko có 'công ty' -> ghép lại
+
+từ 2 trở lên ngoại trừ 'anh em'
+'''
