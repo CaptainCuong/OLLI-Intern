@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class NER_BiLSTMNet(nn.Module):
-    def __init__(self, n_entity, num_classes, input_dim, hidden_dim, seq_len = 20, drop_prob=0.5, batch_size = 1):
+    def __init__(self, num_classes, input_dim, hidden_dim, seq_len = 20, batch_size = 1):
         super(NER_BiLSTMNet, self).__init__()
         self.num_classes = num_classes
         self.input_dim = input_dim
@@ -11,10 +11,10 @@ class NER_BiLSTMNet(nn.Module):
         self.seq_len = seq_len
         self.batch_size = batch_size
         
-        self.lstm_cell_forward = nn.LSTMCell(input_dim, hidden_dim)
-        self.lstm_cell_backward = nn.LSTMCell(input_dim, hidden_dim)
-        self.linearlst = nn.ModuleList([nn.Linear(hidden_dim, num_classes) for _ in range(seq_len)])
-        self.softmax = nn.Softmax()
+        self.lstm = nn.LSTM(input_dim, hidden_dim, bidirectional = True, batch_first = True)
+        self.linear = nn.Linear(2*hidden_dim, num_classes)
+        self.softmax = nn.Softmax(2)
+        
  
     def forward(self, x):
         '''
@@ -26,31 +26,14 @@ class NER_BiLSTMNet(nn.Module):
         assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified: expected %d, but got %d'%(self.seq_len, x.size(1))
         self.batch_size = x.size(0)
         
-        hs_forward = torch.zeros(x.size(0), self.hidden_dim)
-        cs_forward = torch.zeros(x.size(0), self.hidden_dim)
-        hs_backward = torch.zeros(x.size(0), self.hidden_dim)
-        cs_backward = torch.zeros(x.size(0), self.hidden_dim)
-
-        forward = []
-        backward = []
-
-        # Unfolding Bi-LSTM
-        # Forward
-        for i in range(self.seq_len):
-            hs_forward, cs_forward = self.lstm_cell_forward(out[i], (hs_forward, cs_forward))
-            forward.append(hs_forward)
-            
-        # Backward
-        for i in reversed(range(self.seq_len)):
-            hs_backward, cs_backward = self.lstm_cell_backward(out[i], (hs_backward, cs_backward))
-            backward.append(hs_backward)
+        h = torch.zeros(2, self.batch_size, self.hidden_dim)
+        c = torch.zeros(2, self.batch_size, self.hidden_dim)
 
         # LSTM
-        ret = []
-        for fwd, bwd in zip(forward, backward):
-            cat_tensor = torch.cat((fwd, bwd), 1)
-            ret.append(self.softmax(cat_tensor))
-    
+        lstm_out, _ = self.lstm(x)
+        class_tensor = self.linear(lstm_out)
+        tuned_class = self.softmax(class_tensor)
+        return tuned_class
      
     def train(self, train_loader, epochs, batch_size, learning_rate, criterion, optimizer, clip):
         '''
@@ -73,7 +56,7 @@ class NER_BiLSTMNet(nn.Module):
             for inputs, labels in train_loader:
                 if torch.cuda.is_available():
                     inputs, labels = inputs.cuda(), labels.cuda()
-                out_decode = self(inputs).view(-1, self.output_size)
+                out_decode = self(inputs).view(-1, self.num_classes)
                 self.zero_grad()
                 labels = labels.to(torch.long)
                 loss = criterion(out_decode, labels.view(-1))
