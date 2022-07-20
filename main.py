@@ -1,7 +1,11 @@
 import gensim
+import matplotlib.pyplot as plt
+import numpy as np
 from data import *
 from gensim.models import KeyedVectors
 from model import *
+from sklearn.metrics import (ConfusionMatrixDisplay,
+                             precision_recall_fscore_support)
 from utils import *
 
 model = 'baomoi.model.bin'
@@ -96,13 +100,9 @@ for string, _ in strings:
     print('Label:\n',label,'\n')
     print('Converted string:',converted,'\n','-'*50,'\n')
 
-import numpy as np
-from sklearn.metrics import precision_recall_fscore_support
 print(precision_recall_fscore_support(true_lb, pred_lb, labels=['abb','num','unknown'],average=None, zero_division=0))
 
 
-import matplotlib.pyplot as plt
-from sklearn.metrics import ConfusionMatrixDisplay
 ConfusionMatrixDisplay.from_predictions(true_lb, pred_lb)
 plt.show()
 
