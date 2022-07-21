@@ -6,7 +6,7 @@ from model import *
 from utils import *
 
 # torch.set_default_tensor_type(torch.cuda.FloatTensor)
-data_file = pd.read_csv('dataset.csv')
+data_file = pd.read_csv('num_refined_dataset.csv')
 snts = data_file['Sentences'].tolist()
 labels = data_file['Label'].tolist()
 snts, labels = word2vecVN(snts, labels)

@@ -46,17 +46,17 @@ def swap_flt_ind(words):
         if words[i] == 'flt':
             yield i
 
-def clean_num_abb(words, embedding_model, label_model):
+def clean_num_abb(words, embedding_model, label_model, seq_len):
     words = words.lower().split()
 
     # Convert and pad for string
     pad_string = [torch.tensor(embedding_model.get_vector(word).reshape(1,-1)) for word in words]
-    for i in range(len(words), 13):
+    for i in range(len(words), seq_len):
         pad_string.append(torch.zeros((1, 400)))
     pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
     # Get labels
-    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=13, dim = 4)
+    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=seq_len, dim = 4)
     label = label.argmax(dim=2)[0]
     i = 0
     rt = []
@@ -148,17 +148,17 @@ def clean_num_abb(words, embedding_model, label_model):
     assert len(words) == len(retlb), 'Len of label is not consistent with that of sentence. '+' '.join(rt)+'\nLen of sentence:%d'%(len(words))+'\nLen of label:%d'%(len(retlb))
     return ' '.join(rt), ' '.join(retlb)
 
-def clean_abb(words, embedding_model, label_model):
+def clean_abb(words, embedding_model, label_model, seq_len):
     words = words.lower().split()
 
     # Convert and pad for string
     pad_string = [torch.tensor(embedding_model.get_vector(word).reshape(1,-1)) for word in words]
-    for i in range(len(words), 13):
+    for i in range(len(words), seq_len):
         pad_string.append(torch.zeros((1, 400)))
     pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
     # Get labels
-    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=13, dim = 4)
+    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=seq_len, dim = 4)
     label = label.argmax(dim=2)[0]
     i = 0
     rt = []
@@ -182,13 +182,15 @@ def clean_abb(words, embedding_model, label_model):
                 rt.append(lit2num(words[st:lt]))
                 rt_prclabel.extend(['num' for _ in range(lt-st)])
             else:
-                rt.append(words[st:lt])
+                rt.extend(words[st:lt])
                 rt_prclabel.extend('unknown' for _ in range(lt-st))
             i -= 1
         elif words[i] in post_num:
             print(str(words[i]),'\n')
             rt.append(str(post_num[words[i]]))
             rt_prclabel.append('num')
+
+        ####################### ABBREVIATION #######################
         elif words[i] in spoken_alpb:
             st = i
             while i < len(words) and words[i] in spoken_alpb:
@@ -231,6 +233,8 @@ def clean_abb(words, embedding_model, label_model):
         else:
             retlb.append('padding')
     assert len(words) == len(rt_prclabel), 'Len of label is not consistent with that of sentence. '+' '.join(rt)+'\nLen of sentence:%d'%(len(words))+'\nLen of label:%d'%(len(rt_prclabel))
+    print(rt)
+    print(rt_prclabel)
     return ' '.join(rt), ' '.join(rt_prclabel)
 
 

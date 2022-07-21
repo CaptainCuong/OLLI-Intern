@@ -8,7 +8,7 @@ mở bài chín bậc tình yêu,unknown unknown unknown unknown unknown unknown
 mở bài hát tháng mười một,unknown unknown unknown unknown unknown unknown
 mở bài hát tuổi mười ba,unknown unknown unknown unknown unknown unknown
 mở bài ba chấm mười bốn,unknown unknown unknown unknown unknown unknown
-mở bài hát tuổi nàng mười lăm,unknown unknown unknown unknown unknown unknown
+mở bài hát tuổi nàng mười lăm,unknown unknown unknown unknown unknown unknown unknown
 mở bài hát mai em mười bảy,unknown unknown unknown unknown unknown unknown unknown
 mở bài mười chín rồi,unknown unknown unknown unknown unknown
 mở bài hát hai ba năm,unknown unknown unknown unknown unknown unknown
@@ -44,6 +44,47 @@ mở bài rồi hai mươi năm sau,unknown unknown unknown unknown unknown unkn
 mở bài hát hai mươi năm qua,unknown unknown unknown unknown unknown unknown unknown
 mở bài hai mươi năm gặp lại,unknown unknown unknown unknown unknown unknown unknown
 mở bài hát hai mùa mưa,unknown unknown unknown unknown unknown unknown
+phát bài gọi tên bốn mùa,unknown unknown unknown unknown unknown unknown
+phát bài hát bảy sắc cầu vồng,unknown unknown unknown unknown unknown unknown unknown
+phát bài hát đợi tháng tám,unknown unknown unknown unknown unknown unknown
+phát bài chín bậc tình yêu,unknown unknown unknown unknown unknown unknown
+phát bài hát tháng mười một,unknown unknown unknown unknown unknown unknown
+phát bài hát tuổi mười ba,unknown unknown unknown unknown unknown unknown
+phát bài ba chấm mười bốn,unknown unknown unknown unknown unknown unknown
+phát bài hát tuổi nàng mười lăm,unknown unknown unknown unknown unknown unknown unknown
+phát bài hát mai em mười bảy,unknown unknown unknown unknown unknown unknown unknown
+dừng bài hát một,unknown unknown unknown unknown
+dừng bài con số ba,unknown unknown unknown unknown unknown
+dừng bài hát sáu năm,unknown unknown unknown unknown unknown
+dừng bài hát mười năm tình cũ,unknown unknown unknown unknown unknown unknown unknown
+dừng bài rồi hai mươi năm sau,unknown unknown unknown unknown unknown unknown unknown
+dừng bài hát hai mươi năm qua,unknown unknown unknown unknown unknown unknown unknown
+dừng bài hai mươi năm gặp lại,unknown unknown unknown unknown unknown unknown unknown
+lặp hai mùa mưa,unknown unknown unknown unknown
+lặp một,unknown unknown
+lặp con số ba,unknown unknown unknown unknown
+lặp sáu năm,unknown unknown unknown
+lặp mười năm tình cũ,unknown unknown unknown unknown unknown
+lặp rồi hai mươi năm sau,unknown unknown unknown unknown unknown unknown
+lặp hai mươi năm qua,unknown unknown unknown unknown unknown
+lặp hai mươi năm gặp lại,unknown unknown unknown unknown unknown unknown
+lặp hai mùa mưa,unknown unknown unknown unknown
+dừng một,unknown unknown
+dừng con số ba,unknown unknown unknown unknown
+dừng sáu năm,unknown unknown unknown
+dừng mười năm tình cũ,unknown unknown unknown unknown unknown
+dừng rồi hai mươi năm sau,unknown unknown unknown unknown unknown unknown
+dừng hai mươi năm qua,unknown unknown unknown unknown unknown
+dừng hai mươi năm gặp lại,unknown unknown unknown unknown unknown unknown
+dừng hai mùa mưa,unknown unknown unknown unknown
+phát một,unknown unknown
+phát con số ba,unknown unknown unknown unknown
+phát sáu năm,unknown unknown unknown
+phát mười năm tình cũ,unknown unknown unknown unknown unknown
+phát rồi hai mươi năm sau,unknown unknown unknown unknown unknown unknown
+phát hai mươi năm qua,unknown unknown unknown unknown unknown
+phát hai mươi năm gặp lại,unknown unknown unknown unknown unknown unknown
+phát hai mùa mưa,unknown unknown unknown unknown
 năm hai ngàn không trăm hai ba,unknown num num num num num num
 năm hai ngàn không trăm hai bốn,unknown num num num num num num
 năm hai ngàn không trăm hai hai,unknown num num num num num num
@@ -84,6 +125,7 @@ hai triệu rưỡi,num num num
 ba triệu năm trăm sáu mươi nghìn đồng,num num num num num num num unknown
 hai triệu năm trăm bảy mươi nghìn đồng,num num num num num num num unknown
 chín triệu bốn trăm bảy mươi nghìn đồng,num num num num num num num unknown
+triệu chứng,unknown unknown
 triệu chứng hậu cô vít,unknown unknown unknown unknown unknown
 triệu chứng căn bệnh,unknown unknown unknown unknown
 triệu chứng viêm xoang,unknown unknown unknown unknown
@@ -168,7 +210,7 @@ từng người một sẽ được phần thưởng,unknown unknown unknown unk
 chồng năm cuốn sách một thành một bó,unknown unknown unknown unknown unknown unknown unknown unknown
 chỉ có một trên đời,unknown unknown unknown unknown unknown
 chân lý chỉ có một,unknown unknown unknown unknown unknown
-nước việt nam là một dân tộc việt nam là một,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
+nước việt nam là một dân tộc việt nam là một,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
 ba cháu có nhà không,unknown unknown unknown unknown unknown
 con trông nhà để ba đi làm,unknown unknown unknown unknown unknown unknown unknown
 xin phép ba cho con đi đá bóng,unknown unknown unknown unknown unknown unknown unknown unknown
@@ -205,23 +247,6 @@ tháng tư phải đi làm,unknown num unknown unknown unknown
 kì thi đại học được tổ chức vào tháng sáu,unknown unknown unknown unknown unknown unknown unknown unknown unknown num
 chuyện bà tám được phổ biến rộng rãi,unknown unknown unknown unknown unknown unknown unknown unknown
 tám tàu tham gia tìm kiếm mười lăm người mất tích trên biển,num unknown unknown unknown unknown unknown num num unknown unknown unknown unknown unknown
-dượng một,unknown unknown
-dượng hai,unknown unknown
-dượng ba,unknown unknown
-dượng bốn,unknown unknown
-dượng năm,unknown unknown
-dượng sáu,unknown unknown
-dượng tám,unknown unknown
-ông một,unknown unknown
-ông hai,unknown unknown
-ông ba,unknown unknown
-ông bốn,unknown unknown
-ông năm,unknown unknown
-cậu một,unknown unknown
-cậu hai,unknown unknown
-cậu ba,unknown unknown
-cậu bốn,unknown unknown
-cậu năm,unknown unknown
 thím một,unknown unknown
 thím hai,unknown unknown
 thím ba,unknown unknown
@@ -258,6 +283,78 @@ anh sáu,unknown unknown
 anh bảy,unknown unknown
 anh tám,unknown unknown
 anh chín,unknown unknown
+ông một,unknown unknown
+ông hai,unknown unknown
+ông ba,unknown unknown
+ông bốn,unknown unknown
+ông năm,unknown unknown
+ông sáu,unknown unknown
+ông bảy,unknown unknown
+ông tám,unknown unknown
+ông chín,unknown unknown
+bà một,unknown unknown
+bà hai,unknown unknown
+bà ba,unknown unknown
+bà bốn,unknown unknown
+bà năm,unknown unknown
+bà sáu,unknown unknown
+bà bảy,unknown unknown
+bà tám,unknown unknown
+bà chín,unknown unknown
+dì một,unknown unknown
+dì hai,unknown unknown
+dì ba,unknown unknown
+dì bốn,unknown unknown
+dì năm,unknown unknown
+dì sáu,unknown unknown
+dì bảy,unknown unknown
+dì tám,unknown unknown
+dì chín,unknown unknown
+bác một,unknown unknown
+bác hai,unknown unknown
+bác ba,unknown unknown
+bác bốn,unknown unknown
+bác năm,unknown unknown
+bác sáu,unknown unknown
+bác bảy,unknown unknown
+bác tám,unknown unknown
+bác chín,unknown unknown
+cậu một,unknown unknown
+cậu hai,unknown unknown
+cậu ba,unknown unknown
+cậu bốn,unknown unknown
+cậu năm,unknown unknown
+cậu sáu,unknown unknown
+cậu bảy,unknown unknown
+cậu tám,unknown unknown
+cậu chín,unknown unknown
+mợ một,unknown unknown
+mợ hai,unknown unknown
+mợ ba,unknown unknown
+mợ bốn,unknown unknown
+mợ năm,unknown unknown
+mợ sáu,unknown unknown
+mợ bảy,unknown unknown
+mợ tám,unknown unknown
+mợ chín,unknown unknown
+anh một,unknown unknown
+anh hai,unknown unknown
+anh ba,unknown unknown
+anh bốn,unknown unknown
+anh năm,unknown unknown
+anh sáu,unknown unknown
+anh bảy,unknown unknown
+anh tám,unknown unknown
+anh chín,unknown unknown
+chị một,unknown unknown
+chị hai,unknown unknown
+chị ba,unknown unknown
+chị bốn,unknown unknown
+chị năm,unknown unknown
+chị sáu,unknown unknown
+chị bảy,unknown unknown
+chị tám,unknown unknown
+chị chín,unknown unknown
 tháng một,unknown num
 tháng hai,unknown num
 tháng ba,unknown num
@@ -289,19 +386,19 @@ bốn mươi hai phút,num num num unknown
 năm mươi sáu phút,num num num unknown
 năm mươi ba phút,num num num unknown
 sáu mươi phút,num num unknown
-bảy mươi lăm phút,num num unknown
+bảy mươi lăm phút,num num num unknown
 một giờ,num unknown
 hai giờ,num unknown
 ba giờ,num unknown
-bốn mươi hai giờ,num num unknown
+bốn mươi hai giờ,num num num unknown
 bảy tám giờ,num num unknown
 mười hai giờ,num num unknown
 mười một giờ,num num unknown
 mười ba giờ,num num unknown
 hai mốt giờ,num num unknown
-hai mươi mốt giờ,num num unknown
-hai mươi ba giờ,num num unknown
-hai mươi hai giờ,num num unknown
+hai mươi mốt giờ,num num num unknown
+hai mươi ba giờ,num num num unknown
+hai mươi hai giờ,num num num unknown
 mười năm,num unknown
 năm năm,num unknown
 sáu mươi lăm năm,num num num unknown
@@ -309,97 +406,100 @@ ba mươi bảy năm,num num num unknown
 ba mươi sáu,num num num
 ba nghìn bảy trăm,num num num num
 ba cha con,unknown unknown unknown
-ba mẹ luôn yêu thương con cái,
-ba sẽ giúp con công việc nhà,
-phải luôn hiếu thảo với ba mẹ,
-ba mẹ là người sinh ra ta,
-ba đi làm tới ba giờ chiều,
-ba bận trăm công nghìn việc,
-đợi cơ hội chín muồi thì mới hành động,
-chín chắn là chìa khóa dẫn đến thành công,
-quả trứng chín,
-trái cây chín,
-quả hồng chín,
-quả mít chín,
-quả na chín
-tằm đã chín,
-nấu thịt chín,
-thịt bò chín,
-thịt vịt chín,
-thịt heo chín
-món ăn được nấu chín,
-nấu chín thức ăn trước khi sử dụng,
-ăn chín uống sôi sẽ bảo đảm sức khỏe,
-luộc khoai chín trước khi ăn,
-bắp chín,
-ngô chín,
-thức ăn chín,
-rau chín,
-thực phẩm chín,
-suy nghĩ cho chín,
-nghĩ chín,
-ba nuôi con ăn học thành người,,
-ba là cánh chim đưa con đi thật xa,
-ba vụ việc cần được theo dõi,
-ba theo dõi ba vụ việc,
-một cái cây,
-một trăm hai mươi ba,
-ba ăn ba cái bánh,
-ba ăn con ba ba lúc ba giờ,
-lúc bốn giờ,
-lúc năm giờ,
-lúc sáu giờ,
-lúc bảy giờ,
-lúc tám giờ,
-lúc chín giờ,
-lúc mười một giờ,
-lúc mười hai giờ,
-lúc mười ba giờ,
-lúc mười bốn giờ,
-lúc mười lăm giờ,
-lúc mười sáu giờ,
-lúc hai mươi giờ,
-lúc hai mươi mốt giờ,
-lúc hai mươi hai giờ,
-lúc hai mươi ba giờ,
-lúc hai mươi bốn giờ,
-ba bài hát thiếu nhi,
-bốn bài hát thiếu nhi,
-năm bài hát thiếu nhi,
-sáu bài hát thiếu nhi,
-bảy bài hát thiếu nhi,
-tám bài hát thiếu nhi,
-chín bài hát thiếu nhi,
-mười một bài hát thiếu nhi,
-mười hai bài hát thiếu nhi,
-mười bai bài hát thiếu nhi,
-hai mươi mốt bài hát thiếu nhi,
-hai mươi hai bài hát thiếu nhi,
-hai mươi sáu bài hát thiếu nhi,
-hai mươi câu chuyển cổ tích,
-hai mươi mốt câu chuyển cổ tích,
-hai mươi hai câu chuyển cổ tích,
-hai mươi ba câu chuyển cổ tích,
-hai câu chuyển cổ tích,
-ba câu chuyển cổ tích,
-năm câu chuyển cổ tích,
-sáu câu chuyển cổ tích,
-mười một câu chuyển cổ tích,
-mười hai câu chuyển cổ tích,
-năm tháng trước,
-sáu tháng trước,
-bảy tháng trước,
-năm hai nghìn không trăm mười hai,
-năm hai nghìn không trăm mười ba,
-năm hai nghìn không trăm mười bốn,
-năm hai nghìn không trăm mười lăm,
-năm hai nghìn không trăm mười sáu,
-năm hai nghìn không trăm mười bảy,
-năm hai nghìn không trăm mười tám,
-năm hai nghìn không trăm mười chín,
+ba sẽ,unknown unknown
+ba là,unknown unknown
+ba mẹ luôn yêu thương con cái,unknown unknown unknown unknown unknown unknown unknown
+ba sẽ giúp con công việc nhà,unknown unknown unknown unknown unknown unknown unknown
+phải luôn hiếu thảo với ba mẹ,unknown unknown unknown unknown unknown unknown unknown
+ba mẹ là người sinh ra ta,unknown unknown unknown unknown unknown unknown unknown
+ba đi làm tới ba giờ chiều,unknown unknown unknown unknown num unknown unknown
+ba bận trăm công nghìn việc,unknown unknown unknown unknown unknown unknown
+đợi cơ hội chín muồi thì mới hành động,unknown unknown unknown unknown unknown unknown unknown unknown unknown
+chín chắn là chìa khóa dẫn đến thành công,unknown unknown unknown unknown unknown unknown unknown unknown unknown
+chín chắn,unknown unknown
+quả trứng chín,unknown unknown unknown
+trái cây chín,unknown unknown unknown
+quả hồng chín,unknown unknown unknown
+quả mít chín,unknown unknown unknown
+quả na chín,unknown unknown unknown
+tằm đã chín,unknown unknown unknown
+nấu thịt chín,unknown unknown unknown
+thịt bò chín,unknown unknown unknown
+thịt vịt chín,unknown unknown unknown
+thịt heo chín,unknown unknown unknown
+món ăn được nấu chín,unknown unknown unknown unknown unknown
+nấu chín thức ăn trước khi sử dụng,unknown unknown unknown unknown unknown unknown unknown unknown
+ăn chín uống sôi sẽ bảo đảm sức khỏe,unknown unknown unknown unknown unknown unknown unknown unknown unknown
+luộc khoai chín trước khi ăn,unknown unknown unknown unknown unknown unknown
+bắp chín,unknown unknown
+ngô chín,unknown unknown
+thức ăn chín,unknown unknown unknown
+rau chín,unknown unknown
+thực phẩm chín,unknown unknown unknown
+suy nghĩ cho chín,unknown unknown unknown unknown
+nghĩ chín,unknown unknown
+ba nuôi con ăn học thành người,unknown unknown unknown unknown unknown unknown unknown
+ba là cánh chim đưa con đi thật xa,unknown unknown unknown unknown unknown unknown unknown unknown unknown
+ba vụ việc cần được theo dõi,num unknown unknown unknown unknown unknown unknown
+ba theo dõi ba vụ việc,unknown unknown unknown num unknown unknown
+một cái cây,unknown unknown unknown
+một trăm hai mươi ba,num num num num num
+ba ăn ba cái bánh,unknown unknown num unknown unknown
+ba ăn con ba ba lúc ba giờ,unknown unknown unknown unknown unknown unknown num unknown
+lúc bốn giờ,unknown num unknown
+lúc năm giờ,unknown num unknown
+lúc sáu giờ,unknown num unknown
+lúc bảy giờ,unknown num unknown
+lúc tám giờ,unknown num unknown
+lúc chín giờ,unknown num unknown
+lúc mười một giờ,unknown num num unknown
+lúc mười hai giờ,unknown num num unknown
+lúc mười ba giờ,unknown num num unknown
+lúc mười bốn giờ,unknown num num unknown
+lúc mười lăm giờ,unknown num num unknown
+lúc mười sáu giờ,unknown num num unknown
+lúc hai mươi giờ,unknown num num unknown
+lúc hai mươi mốt giờ,unknown num num num unknown
+lúc hai mươi hai giờ,unknown num num num unknown
+lúc hai mươi ba giờ,unknown num num num unknown
+lúc hai mươi bốn giờ,unknown num num num unknown
+ba bài hát thiếu nhi,num unknown unknown unknown unknown
+bốn bài hát thiếu nhi,num unknown unknown unknown unknown
+năm bài hát thiếu nhi,num unknown unknown unknown unknown
+sáu bài hát thiếu nhi,num unknown unknown unknown unknown
+bảy bài hát thiếu nhi,num unknown unknown unknown unknown
+tám bài hát thiếu nhi,num unknown unknown unknown unknown
+chín bài hát thiếu nhi,num unknown unknown unknown unknown
+mười một bài hát thiếu nhi,num num unknown unknown unknown unknown
+mười hai bài hát thiếu nhi,num num unknown unknown unknown unknown
+mười ba bài hát thiếu nhi,num num unknown unknown unknown unknown
+hai mươi mốt bài hát thiếu nhi,num num num unknown unknown unknown unknown
+hai mươi hai bài hát thiếu nhi,num num num unknown unknown unknown unknown
+hai mươi sáu bài hát thiếu nhi,num num num unknown unknown unknown unknown
+hai mươi câu chuyển cổ tích,num num unknown unknown unknown unknown
+hai mươi mốt câu chuyển cổ tích,num num num unknown unknown unknown unknown
+hai mươi hai câu chuyển cổ tích,num num num unknown unknown unknown unknown
+hai mươi ba câu chuyển cổ tích,num num num unknown unknown unknown unknown
+hai câu chuyển cổ tích,num unknown unknown unknown unknown
+ba câu chuyển cổ tích,num unknown unknown unknown unknown
+năm câu chuyển cổ tích,num unknown unknown unknown unknown
+sáu câu chuyển cổ tích,num unknown unknown unknown unknown
+mười một câu chuyển cổ tích,num num unknown unknown unknown unknown
+mười hai câu chuyển cổ tích,num num unknown unknown unknown unknown
+năm tháng trước,num unknown unknown
+sáu tháng trước,num unknown unknown
+bảy tháng trước,num unknown unknown
+năm hai nghìn không trăm mười hai,unknown num num num num num num
+năm hai nghìn không trăm mười ba,unknown num num num num num num
+năm hai nghìn không trăm mười bốn,unknown num num num num num num
+năm hai nghìn không trăm mười lăm,unknown num num num num num num
+năm hai nghìn không trăm mười sáu,unknown num num num num num num
+năm hai nghìn không trăm mười bảy,unknown num num num num num num
+năm hai nghìn không trăm mười tám,unknown num num num num num num
+năm hai nghìn không trăm mười chín,unknown num num num num num num
 chín chắn sau chín tháng,unknown unknown unknown num unknown
 chín chắn lúc chín tuổi,unknown unknown unknown num unknown
-chín chắn lúc mười chín tuổi,unknown unknown unknown num unknown
+chín chắn lúc mười chín tuổi,unknown unknown unknown num num unknown
 chín muồi lúc chín giờ,unknown unknown unknown num unknown
 chín chắn ở tuổi mười chín,unknown unknown unknown unknown num_mag num
 một nghề cho chín còn hơn chín nghề,num unknown unknown unknown unknown unknown num unknown
@@ -423,7 +523,7 @@ Một nghề cho chín còn hơn chín nghề,unknown unknown unknown unknown un
 Một nghề thì sống đống nghề thì chết,unknown unknown unknown unknown unknown unknown unknown unknown
 Yêu nhau cau sáu bổ ba Ghét nhau cau sáu bổ ra làm mười,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
 Một lòng một dạ,unknown unknown unknown unknown
-Hai đánh một chẳng chột thì què,unknown unknown unknown unknown unknown unknown unknown unknown
+Hai đánh một chẳng chột thì què,unknown unknown unknown unknown unknown unknown unknown
 Đêm tháng năm chưa nằm đã sáng ngày tháng mười chưa cười đã tối,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
 Chín Tháng Mười Ngày,unknown unknown unknown unknown
 năm thì mười họa,unknown unknown unknown unknown
@@ -467,7 +567,7 @@ Mồm năm miệng mười,unknown unknown unknown unknown
 Nói một đằng làm một nẻo,unknown unknown unknown unknown unknown unknown
 Năm Nắng Mười Mưa,unknown unknown unknown unknown
 bốn biển một nhà,unknown unknown unknown unknown
-Bao giờ cho đến tháng ba Hoa gạo rụng xuống bà già cất chăn,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
+Bao giờ cho đến tháng ba Hoa gạo rụng xuống bà già cất chăn,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
 Một ngày vợ chồng nghìn năm ân nghĩa,unknown unknown unknown unknown unknown unknown unknown unknown
 Một chữ cũng là thầy nửa chữ cũng là thầy,unknown unknown unknown unknown unknown unknown unknown unknown unknown unknown
 Một công đôi việc,unknown unknown unknown unknown
@@ -500,6 +600,117 @@ rét tháng ba bà già chết cóng,unknown unknown unknown unknown unknown unk
 cái áo có giá một trăm hai mươi sáu nghìn đồng,unknown unknown unknown unknown num num num num num num unknown
 cái quần có giá một trăm hai mươi sáu nghìn đồng,unknown unknown unknown unknown num num num num num num unknown
 món đồ trị giá chín triệu năm trăm sáu mươi nghìn đồng,unknown unknown unknown unknown num num num num num num num unknown
+hai anh en,num unknown unknown
+một anh,num unknown
+hai anh,num unknown
+ba anh,num unknown
+bốn anh,num unknown
+năm anh,num unknown
+sáu anh,num unknown
+bảy anh,num unknown
+tám anh,num unknown
+chín anh,num unknown
+mười anh,num unknown
+một chị,num unknown
+hai chị,num unknown
+ba chị,num unknown
+bốn chị,num unknown
+năm chị,num unknown
+sáu chị,num unknown
+bảy chị,num unknown
+tám chị,num unknown
+chín chị,num unknown
+mười chị,num unknown
+một ông,num unknown
+hai ông,num unknown
+ba ông,num unknown
+bốn ông,num unknown
+năm ông,num unknown
+sáu ông,num unknown
+bảy ông,num unknown
+tám ông,num unknown
+chín ông,num unknown
+mười ông,num unknown
+một bà,num unknown
+hai bà,num unknown
+ba bà,num unknown
+bốn bà,num unknown
+năm bà,num unknown
+sáu bà,num unknown
+bảy bà,num unknown
+tám bà,num unknown
+chín bà,num unknown
+mười bà,num unknown
+một cô,num unknown
+hai cô,num unknown
+ba cô,num unknown
+bốn cô,num unknown
+năm cô,num unknown
+sáu cô,num unknown
+bảy cô,num unknown
+tám cô,num unknown
+chín cô,num unknown
+mười cô,num unknown
+một dì,num unknown
+hai dì,num unknown
+ba dì,num unknown
+bốn dì,num unknown
+năm dì,num unknown
+sáu dì,num unknown
+bảy dì,num unknown
+tám dì,num unknown
+chín dì,num unknown
+mười dì,num unknown
+một chú,num unknown
+hai chú,num unknown
+ba chú,num unknown
+bốn chú,num unknown
+năm chú,num unknown
+sáu chú,num unknown
+bảy chú,num unknown
+tám chú,num unknown
+chín chú,num unknown
+mười chú,num unknown
+một bác,num unknown
+hai bác,num unknown
+ba bác,num unknown
+bốn bác,num unknown
+năm bác,num unknown
+sáu bác,num unknown
+bảy bác,num unknown
+tám bác,num unknown
+chín bác,num unknown
+mười bác,num unknown
+một mợ,num unknown
+hai mợ,num unknown
+ba mợ,num unknown
+bốn mợ,num unknown
+năm mợ,num unknown
+sáu mợ,num unknown
+bảy mợ,num unknown
+tám mợ,num unknown
+chín mợ,num unknown
+mười mợ,num unknown
+một thím,num unknown
+hai thím,num unknown
+ba thím,num unknown
+bốn thím,num unknown
+năm thím,num unknown
+sáu thím,num unknown
+bảy thím,num unknown
+tám thím,num unknown
+chín thím,num unknown
+mười thím,num unknown
+một dượng,num unknown
+hai dượng,num unknown
+ba dượng,num unknown
+bốn dượng,num unknown
+năm dượng,num unknown
+sáu dượng,num unknown
+bảy dượng,num unknown
+tám dượng,num unknown
+chín dượng,num unknown
+mười dượng,num unknown
 
 
 
