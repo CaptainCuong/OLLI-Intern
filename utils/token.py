@@ -167,3 +167,27 @@ pronoun = ('ông','bà','cô','dì','chú','bác','cậu','mợ','thím','anh','
 
 abb_prior = ('nhóm', 'công ti', 'công ty', 'trường', 'học', 
 			'doanh nghiệp', 'đoàn', 'hội', 'chương trình', 'ngân hàng','cửa hàng')
+
+POS_TAG = {
+	'C':1,
+	'N':2,
+	'M':3,
+	'Np':4,
+	'V':5,
+	'A':6,
+	'E':7,
+	'Nu':8,
+	'T':9,
+	'R':10,
+	'V':11,
+	'L':12,
+	'R':13,
+	'A':14,
+	'CH':15,
+	'Nu':16,
+	'P':17,
+	'Nc':18,
+	'X':19,
+	'Z':20,
+	'I':21
+}

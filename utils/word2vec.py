@@ -7,8 +7,9 @@ import numpy as np
 import torch
 from gensim.models import KeyedVectors
 from torch.nn.utils.rnn import pad_sequence
+from underthesea import pos_tag
 
-from .token import idx2token, token, token2idx, token2vec, spoken_alpb
+from .token import POS_TAG, idx2token, spoken_alpb, token, token2idx, token2vec
 
 
 def word2vec(sentences, labels):
@@ -53,6 +54,7 @@ def word2vecVN(sentences,labels_):
 	word2vec_model = KeyedVectors.load_word2vec_format(model, binary=True)
 	snts = []
 	labels = []
+	POS_tag = []
 	for snt, lbs in zip(sentences, labels_):
 		print(snt, ':',lbs)
 		snt = snt.lower().split()
@@ -72,13 +74,17 @@ def word2vecVN(sentences,labels_):
 		labelid = []
 		for lb in lbs:
 			if lb not in token:
-				raise Exception('Label has not been defined')
+				raise Exception('Label has not been defined :'+lb)
 			labelid.append(token2idx[lb])
 		labels.append(torch.tensor(labelid))
+		 
+		snt_pos = pos_tag(' '.join(snt))
+		POS_tag.append(torch.tensor([POS_TAG[tag] for prs,tag in snt_pos for _ in range(len(prs.split()))]))
 	print(len(snts))
 	print(len(labels))
 	snts = pad_sequence(snts,batch_first=True)
-	labels = pad_sequence(labels,batch_first=True) 
+	labels = pad_sequence(labels,batch_first=True)
+	POS_tag = pad_sequence(POS_tag,batch_first=True)
 	def aggregatenum(tensor):
 		for i in range(len(tensor)):
 			for j in range(len(tensor[0])):
@@ -92,4 +98,4 @@ def word2vecVN(sentences,labels_):
 					tensor[i][j] = 1
 		return tensor
 	aggregatenum(labels)
-	return snts, labels
+	return (snts,POS_tag), labels

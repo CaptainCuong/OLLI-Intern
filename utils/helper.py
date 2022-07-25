@@ -1,8 +1,9 @@
 import torch
+from underthesea import pos_tag
 
-from .token import (abb_prior, abbreviation_list, flt, hard, num, num_mag,
-                    num_mag_level, post_num, pronoun, spoken_alpb, sub_num_mag,
-                    unit)
+from .token import (POS_TAG, abb_prior, abbreviation_list, flt, hard, num,
+                    num_mag, num_mag_level, post_num, pronoun, spoken_alpb,
+                    sub_num_mag, unit)
 
 
 '''
@@ -157,8 +158,13 @@ def clean_abb(words, embedding_model, label_model, seq_len):
         pad_string.append(torch.zeros((1, 400)))
     pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
+    # Get pos_tag
+    POS_tag = [POS_TAG[tag] for prs, tag in pos_tag(' '.join(words)) for _ in range(len(prs.split()))]
+    for i in range(len(words), seq_len):
+        POS_tag.append(0)
+    POS_tag = torch.tensor(POS_tag)
     # Get labels
-    label = label_model(pad_string.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=seq_len, dim = 4)
+    label = label_model(pad_string.unsqueeze(dim=0), POS_tag.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=seq_len, dim = 4)
     label = label.argmax(dim=2)[0]
     i = 0
     rt = []
@@ -233,9 +239,7 @@ def clean_abb(words, embedding_model, label_model, seq_len):
         else:
             retlb.append('padding')
     assert len(words) == len(rt_prclabel), 'Len of label is not consistent with that of sentence. '+' '.join(rt)+'\nLen of sentence:%d'%(len(words))+'\nLen of label:%d'%(len(rt_prclabel))
-    print(rt)
-    print(rt_prclabel)
-    return ' '.join(rt), ' '.join(rt_prclabel)
+    return ' '.join(rt), ' '.join(retlb)
 
 
 def lit2num(words):
