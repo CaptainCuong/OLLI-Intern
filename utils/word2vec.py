@@ -66,9 +66,9 @@ def word2vecVN(sentences,labels_):
 				ws.append(torch.tensor(word2vec_model.get_vector(word).reshape((1,-1))))
 			except:
 				if model == 'wiki.vi.model.bin':
-					ws.append(torch.ones((400,0)))
+					ws.append(torch.tensor([[0.0625 for _ in range(400)]], dtype = torch.double))
 				elif model == 'baomoi.model.bin':
-					ws.append(torch.ones((400,0)))
+					ws.append(torch.tensor([[0.0625 for _ in range(400)]]))
 		ws = torch.concat(ws, dim = 0)
 		snts.append(ws)
 		labelid = []
@@ -88,13 +88,13 @@ def word2vecVN(sentences,labels_):
 	def aggregatenum(tensor):
 		for i in range(len(tensor)):
 			for j in range(len(tensor[0])):
-				if tensor[i][j] == 8:
+				if tensor[i][j] == 8: # ABB
 					tensor[i][j] = 3
-				elif tensor[i][j] == 7:
+				elif tensor[i][j] == 7: # UNKNOWN
 					tensor[i][j] = 2
-				elif tensor[i][j] == 0:
+				elif tensor[i][j] == 0: # PADDING
 					tensor[i][j] = 0
-				else:
+				else:					# NUM
 					tensor[i][j] = 1
 		return tensor
 	aggregatenum(labels)

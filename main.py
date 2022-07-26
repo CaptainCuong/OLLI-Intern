@@ -7,14 +7,14 @@ from model import *
 from sklearn.metrics import (ConfusionMatrixDisplay,
                              precision_recall_fscore_support)
 from utils import *
-
+from utils.token import token2idx
 model = 'baomoi.model.bin'
 label_model_name = 'bilstm'
 word2vec_model = KeyedVectors.load_word2vec_format(model, binary=True)
 SEQ_LEN = 30
-output_size = n_entity = 4
+output_size = n_entity = 3
 embedding_dim = 400
-hidden_dim = 200
+hidden_dim = 100
 pos_dim = 100
 n_layers = 1
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -143,6 +143,17 @@ num_strings = [
             ('phổ điểm năm tổ hợp xét tuyển đại học','unknown unknown num unknown unknown unknown unknown unknown unknown'),
             ('trường tặng năm cuốn vở','unknown unknown num unknown unknown'),
             ('bông hoa điểm mười','unknown unknown unknown num'),
+            ('mở bài hát cháu lên ba','unknown unknown unknown unknown unknown unknown'),
+            ('phát bài hát cháu lên ba','unknown unknown unknown unknown unknown unknown'),
+            ('phát bài hát cháu lên ba lúc ba giờ ngày hai ba','unknown unknown unknown unknown unknown unknown unknown num unknown unknown num num'),
+            ('mở bài hát cháu lên ba ba lần ở phòng của ba','unknown unknown unknown unknown unknown unknown num unknown unknown unknown unknown unknown'),
+            ('đọc bài thơ đồng tháp mười mười lần lúc mười giờ sáng','unknown unknown unknown unknown unknown unknown num unknown unknown num unknown unknown'),
+            ('mở bài mười năm tình cũ hai mươi ba lần','unknown unknown unknown unknown unknown unknown num num num unknown'),
+            ('nhắc tôi đi chơi vào thứ năm ngày năm tháng năm năm hai ngàn không trăm hai hai','unknown unknown unknown unknown unknown unknown num unknown num unknown num unknown num num num num num num'),
+            ('ngày thứ ba thứ ba trong tháng ba là ngày mấy','unknown unknown  unknown unknown num unknown unknown num unknown unknown unknown'),
+            ('ba người ba bắt ba con ba ba lúc ba giờ chiều ngày thứ ba','num unknown unknown unknown num unknown unknown unknown unknown num unknown unknown unknown unknown num'),
+            ('mở bài hát hoa mười giờ','unknown unknown unknown unknown unknown unknown'),
+            ('mở đài hát tê vê bảy','unknown unknown unknown unknown unknown num')
             ]
 
 true_lb = []
@@ -152,8 +163,8 @@ for num_str in num_strings:
     _, lbs = num_str
     for tag in lbs.split():
         true_lb.append(tag)
-pred_lb = []
 
+pred_lb = []
 for string, true_label in num_strings:
     print('Original string:',string)
     converted, label = clean_abb(string, embedding_model = word2vec_model, label_model = label_model, seq_len = SEQ_LEN)
@@ -165,7 +176,59 @@ for string, true_label in num_strings:
     print('-'*50,'\n')
 
 print(precision_recall_fscore_support(true_lb, pred_lb, labels=['abb','num','unknown'],average=None, zero_division=0))
+print('Overall Accuracy: %f'%(np.sum(np.array(true_lb) == np.array(pred_lb))/len(true_lb)))
+print('Total correct lb: %f'%(np.sum(np.array(true_lb) == np.array(pred_lb))))
+print('Total lb: %f'%(len(true_lb)))
+# ConfusionMatrixDisplay.from_predictions(true_lb, pred_lb)
+# plt.show()
+
+TEST_BATCH_SIZE = 100
+test_snts = [num_str for num_str, _ in num_strings]
+test_labels = [label for _, label in num_strings]
+(test_snts,test_pos_tag), test_labels = word2vecVN(test_snts, test_labels)
+test_dataset = create_dataset(test_snts,test_pos_tag,test_labels)
+test_loader = create_loader(test_dataset, TEST_BATCH_SIZE, True)
 
 
-ConfusionMatrixDisplay.from_predictions(true_lb, pred_lb)
-plt.show()
+a = next(iter(test_loader))
+if torch.cuda.is_available():
+    a = a[0].cuda(), a[1].cuda(), a[2].cuda()
+b = label_model(a[0], a[1]).argmax(dim=2)
+
+
+valid_ele = 0
+x = 0
+print(a[0][0][:20])
+for d1 in range(b.shape[0]):
+  for d2 in range(b.shape[1]):
+    if a[2][d1][d2] != 0:
+      valid_ele += 1
+      if a[2][d1][d2] == b[d1][d2]:
+        x += 1
+    else:
+      break
+# x = (a[2] == b).view(-1)
+acc = x/valid_ele
+print(acc)
+print(x)
+print(valid_ele)
+
+# valid_ele = 0
+# x = 0
+
+# true_lb = []
+# for num_str in num_strings:
+#     if not len(num_str) == 2:
+#         print(num_str)
+#     _, lbs = num_str
+#     true_lb.append([token2idx[tag] for tag in lbs.split()])
+
+# for i in range(len(true_lb)):
+#   for j in range(len(true_lb[i])):
+#       valid_ele += 1
+#       if a[2][i][j] == b[i][j]:
+#         x += 1
+# acc = x/valid_ele
+# print(acc)
+# print(x)
+# print(valid_ele)

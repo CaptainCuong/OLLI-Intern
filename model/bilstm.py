@@ -24,11 +24,10 @@ class NER_BiLSTMNet(nn.Module):
         hidden: initial hidden
         '''
         assert len(x.size()) == 3, 'Input must have 3 dimension (batch_size, seq_len, dim)'
-        assert x.size(1) == self.seq_len, 'Sequence length is not as same as specified: expected %d, but got %d'%(self.seq_len, x.size(1))
         self.batch_size = x.size(0)
         
-        pos_tag = self.embedding(pos_tag)
-        x = 0.1*x+0.9*pos_tag
+        pos_tag = 0.5*self.embedding(pos_tag)
+        x = 0.15*x+0.85*pos_tag
         # CNN
         x = torch.transpose(x,1,2)
         x = self.cnn(x)
@@ -39,7 +38,7 @@ class NER_BiLSTMNet(nn.Module):
         tuned_class = self.softmax(class_tensor)
         return tuned_class
      
-    def train(self, train_loader, epochs, batch_size, learning_rate, criterion, optimizer, clip):
+    def train(self, train_loader, test_loader, epochs, batch_size, learning_rate, criterion, optimizer, clip):
         '''
         train_loader:
             input: (batch_size, seq_len, embedding_dim)
@@ -55,25 +54,48 @@ class NER_BiLSTMNet(nn.Module):
             optimizer = torch.optim.Adam(self.parameters(), lr = learning_rate)
         
         loss = 0
+        accuracy = 0
         for i in range(epochs):
             super().train()
             for inputs, pos_tag, labels in train_loader:
                 if torch.cuda.is_available():
                     inputs, pos_tag, labels = inputs.cuda(), pos_tag.cuda(), labels.cuda()
                 out_decode = self(inputs, pos_tag).view(-1, self.num_classes)
-                print(out_decode.shape)
                 self.zero_grad()
                 labels = labels.to(torch.long)
                 loss = criterion(out_decode, labels.view(-1))
+                num_prob = out_decode[:,1]
+                num_true = (labels.type(torch.int8).view(-1)==1).type(torch.float32)
+                # BCE Loss for num
+                num_prob = out_decode[:,1]
+                num_true = (labels.type(torch.int8).view(-1)==1).type(torch.float32)
+                loss2 = torch.nn.BCELoss()(num_prob, num_true)
+                loss = loss + 5*loss2
                 loss.backward()
                 optimizer.step()
             super().train(False)
-            a = next(iter(train_loader))
+
+            # VAL ACCURACY
+            a = next(iter(test_loader))
             if torch.cuda.is_available():
-                a = a[0].cuda(), a[1].cuda()
-            b = self(a[0], pos_tag)
-            x = ((a[1] == b.argmax(dim=2))).view(-1)
-            print('Epoch %d:\nLoss: %f\nAccuracy: %f\n-----------\n'%(i,loss.item(),x.sum().item()/x.shape[0]))
+                a = a[0].cuda(), a[1].cuda(), a[2].cuda()
+            b = self(a[0], a[1]).argmax(dim=2)
+            valid_ele = 0
+            x = 0
+            for d1 in range(b.shape[0]):
+              for d2 in range(b.shape[1]):
+                if a[2][d1][d2] != 0:
+                  valid_ele += 1
+                  if a[2][d1][d2] == b[d1][d2]:
+                    x += 1
+                else:
+                  break
+            # x = (a[2] == b).view(-1)
+            acc = x/valid_ele
+            print('Epoch %d:\nLoss: %f\nAccuracy: %f\n-----------\n'%(i,loss.item(),acc))
+            if acc >= accuracy:
+                torch.save(self.state_dict(), './bilstm_model.pt')
+                accuracy = acc
 
     def eval(self, dataloader, criterion):
         score = []
