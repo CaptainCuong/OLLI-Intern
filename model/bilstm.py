@@ -27,7 +27,7 @@ class NER_BiLSTMNet(nn.Module):
         self.batch_size = x.size(0)
         
         pos_tag = 0.5*self.embedding(pos_tag)
-        x = 0.15*x+0.85*pos_tag
+        x = 0.2*x+0.8*pos_tag
         # CNN
         x = torch.transpose(x,1,2)
         x = self.cnn(x)

@@ -179,39 +179,39 @@ print(precision_recall_fscore_support(true_lb, pred_lb, labels=['abb','num','unk
 print('Overall Accuracy: %f'%(np.sum(np.array(true_lb) == np.array(pred_lb))/len(true_lb)))
 print('Total correct lb: %f'%(np.sum(np.array(true_lb) == np.array(pred_lb))))
 print('Total lb: %f'%(len(true_lb)))
-# ConfusionMatrixDisplay.from_predictions(true_lb, pred_lb)
-# plt.show()
+ConfusionMatrixDisplay.from_predictions(true_lb, pred_lb)
+plt.show()
 
-TEST_BATCH_SIZE = 100
-test_snts = [num_str for num_str, _ in num_strings]
-test_labels = [label for _, label in num_strings]
-(test_snts,test_pos_tag), test_labels = word2vecVN(test_snts, test_labels)
-test_dataset = create_dataset(test_snts,test_pos_tag,test_labels)
-test_loader = create_loader(test_dataset, TEST_BATCH_SIZE, True)
-
-
-a = next(iter(test_loader))
-if torch.cuda.is_available():
-    a = a[0].cuda(), a[1].cuda(), a[2].cuda()
-b = label_model(a[0], a[1]).argmax(dim=2)
+# TEST_BATCH_SIZE = 100
+# test_snts = [num_str for num_str, _ in num_strings]
+# test_labels = [label for _, label in num_strings]
+# (test_snts,test_pos_tag), test_labels = word2vecVN(test_snts, test_labels)
+# test_dataset = create_dataset(test_snts,test_pos_tag,test_labels)
+# test_loader = create_loader(test_dataset, TEST_BATCH_SIZE, True)
 
 
-valid_ele = 0
-x = 0
-print(a[0][0][:20])
-for d1 in range(b.shape[0]):
-  for d2 in range(b.shape[1]):
-    if a[2][d1][d2] != 0:
-      valid_ele += 1
-      if a[2][d1][d2] == b[d1][d2]:
-        x += 1
-    else:
-      break
-# x = (a[2] == b).view(-1)
-acc = x/valid_ele
-print(acc)
-print(x)
-print(valid_ele)
+# a = next(iter(test_loader))
+# if torch.cuda.is_available():
+#     a = a[0].cuda(), a[1].cuda(), a[2].cuda()
+# b = label_model(a[0], a[1]).argmax(dim=2)
+
+
+# valid_ele = 0
+# x = 0
+# print(a[0][0][:20])
+# for d1 in range(b.shape[0]):
+#   for d2 in range(b.shape[1]):
+#     if a[2][d1][d2] != 0:
+#       valid_ele += 1
+#       if a[2][d1][d2] == b[d1][d2]:
+#         x += 1
+#     else:
+#       break
+# # x = (a[2] == b).view(-1)
+# acc = x/valid_ele
+# print(acc)
+# print(x)
+# print(valid_ele)
 
 # valid_ele = 0
 # x = 0

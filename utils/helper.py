@@ -153,13 +153,25 @@ def clean_abb(words, embedding_model, label_model, seq_len):
     words = words.lower().split()
 
     # Convert and pad for string
-    pad_string = [torch.tensor(embedding_model.get_vector(word).reshape(1,-1)) for word in words]
+    pad_string = []
+    for word in words:
+        try:
+            pad_string.append(torch.tensor(embedding_model.get_vector(word).reshape(1,-1)))
+        except:
+            pad_string.append(torch.tensor([[0.0625 for _ in range(400)]]))
     for i in range(len(words), seq_len):
         pad_string.append(torch.zeros((1, 400)))
     pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
     # Get pos_tag
-    POS_tag = [POS_TAG[tag] for prs, tag in pos_tag(' '.join(words)) for _ in range(len(prs.split()))]
+    # POS_tag = [POS_TAG[tag] for prs, tag in pos_tag(' '.join(words)) for _ in range(len(prs.split()))]
+    POS_tag = []
+    for prs, tag in pos_tag(' '.join(words)):
+        for _ in range(len(prs.split())):
+            try:
+                POS_tag.append(POS_TAG[tag])
+            except:
+                POS_tag.append(0)
     for i in range(len(words), seq_len):
         POS_tag.append(0)
     POS_tag = torch.tensor(POS_tag)
@@ -197,32 +209,32 @@ def clean_abb(words, embedding_model, label_model, seq_len):
             rt_prclabel.append('num')
 
         ####################### ABBREVIATION #######################
-        elif words[i] in spoken_alpb:
-            st = i
-            while i < len(words) and words[i] in spoken_alpb:
-                i += 1
-            lt = i
-            if lt-st >= 3:
-                # Ex: 'công ty ép pi ti'
-                if words[st] in ['ti', 'ty'] and st > 0 and words[st-1] == 'công':
-                    rt.append(words[st])
-                    rt_prclabel.append('unknown')
-                    st += 1
-                    rt.append(merge_abb(words[st:lt]))
-                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
-                else:
-                    # Abbreviation exists in database
-                    mw = merge_abb(words[st:lt])
-                    rt.append(mw)
-                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
-            elif lt-st == 2 and ' '.join(words[st:lt]) != 'anh em':
-                mw = merge_abb(words[st:lt])
-                rt.append(mw)
-                rt_prclabel.extend(['abb' for _ in range(lt-st)])
-            else:
-                rt.append(words[i-1])
-                rt_prclabel.append('unknown')
-            i -= 1
+        # elif words[i] in spoken_alpb:
+        #     st = i
+        #     while i < len(words) and words[i] in spoken_alpb:
+        #         i += 1
+        #     lt = i
+        #     if lt-st >= 3:
+        #         # Ex: 'công ty ép pi ti'
+        #         if words[st] in ['ti', 'ty'] and st > 0 and words[st-1] == 'công':
+        #             rt.append(words[st])
+        #             rt_prclabel.append('unknown')
+        #             st += 1
+        #             rt.append(merge_abb(words[st:lt]))
+        #             rt_prclabel.extend(['abb' for _ in range(lt-st)])
+        #         else:
+        #             # Abbreviation exists in database
+        #             mw = merge_abb(words[st:lt])
+        #             rt.append(mw)
+        #             rt_prclabel.extend(['abb' for _ in range(lt-st)])
+        #     elif lt-st == 2 and ' '.join(words[st:lt]) != 'anh em':
+        #         mw = merge_abb(words[st:lt])
+        #         rt.append(mw)
+        #         rt_prclabel.extend(['abb' for _ in range(lt-st)])
+        #     else:
+        #         rt.append(words[i-1])
+        #         rt_prclabel.append('unknown')
+        #     i -= 1
         else:
             rt.append(words[i])
             rt_prclabel.append('unknown')
@@ -281,7 +293,10 @@ def lit2num(words):
                 j += 1
                 stk[j:] = [(sum([num[0] for num in stk[j:]])*float(num_mag[words[i]]), num_mag_level[words[i]])]
         elif words[i] in flt:
-            stk[-1] = (stk[-1]+float(flt[words[i]]), stk[-1][1])
+            # print(stk)
+            # print(stk[-1]+float(flt[words[i]]))
+            # print(stk[-1][1])
+            stk[-1] = (stk[-1][0]+float(flt[words[i]]), stk[-1][1])
         i += 1
         # print(stk)
     return str(sum([num[0] for num in stk]))
