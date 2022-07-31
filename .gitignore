@@ -3,3 +3,5 @@
 **/*.bz2
 **/*.bin
 **/*.gz
+/data.csv
+/data_converted.csv

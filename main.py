@@ -8,6 +8,7 @@ from sklearn.metrics import (ConfusionMatrixDisplay,
                              precision_recall_fscore_support)
 from utils import *
 from utils.token import token2idx
+
 model = 'baomoi.model.bin'
 label_model_name = 'bilstm'
 word2vec_model = KeyedVectors.load_word2vec_format(model, binary=True)
