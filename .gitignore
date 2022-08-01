@@ -5,3 +5,4 @@
 **/*.gz
 /data.csv
 /data_converted.csv
+/gen_data.csv
