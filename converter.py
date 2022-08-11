@@ -4,8 +4,6 @@ import numpy as np
 from data import *
 from gensim.models import KeyedVectors
 from model import *
-from sklearn.metrics import (ConfusionMatrixDisplay,
-                             precision_recall_fscore_support)
 from utils import *
 from utils.token import token2idx
 import  pandas as pd 

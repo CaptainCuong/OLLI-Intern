@@ -9,11 +9,11 @@ from sklearn.metrics import (ConfusionMatrixDisplay,
 from utils import *
 from utils.token import token2idx
 
-model = 'baomoi.model.bin'
-label_model_name = 'bilstm'
+model = 'baomoi.model.bin' # Model for embedding
+label_model_name = 'bilstm' # Model for labelling
 word2vec_model = KeyedVectors.load_word2vec_format(model, binary=True)
-SEQ_LEN = 30
-output_size = n_entity = 3
+SEQ_LEN = 30 # Default length of a sentence for training
+output_size = n_entity = 3 # Number of classes + 1(padding), e.g. ['num', 'unknown', 'abb'] -> n_entity = 4
 embedding_dim = 400
 hidden_dim = 100
 pos_dim = 100
@@ -29,6 +29,8 @@ elif label_model_name == 'bilstm':
 else:
     raise Exception('Invalid model for labelling')
 
+
+####################   TEST DATA (ABBREVIATION)   ####################
 abb_strings = [
             ('đi ăn ca ép xê','unknown unknown abb abb abb'),
             ('tập đoàn vi en pi ti','unknown unknown abb abb abb abb'),
@@ -54,6 +56,8 @@ abb_strings = [
             ('công ty vi en pi ti','unknown unknown abb abb abb abb'),
             ('mở đài hát tê vê ba lúc ba giờ chiều','unknown unknown abb abb abb num unknown num unknown unknown'),
             ]
+
+####################   TEST DATA (NUMBER)  ####################
 num_strings = [
             ('dừng phát bài hát mười một phố phường','unknown unknown unknown unknown num num unknown unknown'),
             ('ba triệu năm trăm sáu mươi nghìn đồng','num num num num num num num unknown'),
@@ -166,7 +170,7 @@ for num_str in num_strings:
         true_lb.append(tag)
 
 pred_lb = []
-for string, true_label in num_strings:
+for string, true_label in num_strings: # num_strings or abb_strings
     print('Original string:',string)
     converted, label = clean_abb(string, embedding_model = word2vec_model, label_model = label_model, seq_len = SEQ_LEN)
     pred_lb.extend(label.split())
@@ -182,54 +186,3 @@ print('Total correct lb: %f'%(np.sum(np.array(true_lb) == np.array(pred_lb))))
 print('Total lb: %f'%(len(true_lb)))
 ConfusionMatrixDisplay.from_predictions(true_lb, pred_lb)
 plt.show()
-
-# TEST_BATCH_SIZE = 100
-# test_snts = [num_str for num_str, _ in num_strings]
-# test_labels = [label for _, label in num_strings]
-# (test_snts,test_pos_tag), test_labels = word2vecVN(test_snts, test_labels)
-# test_dataset = create_dataset(test_snts,test_pos_tag,test_labels)
-# test_loader = create_loader(test_dataset, TEST_BATCH_SIZE, True)
-
-
-# a = next(iter(test_loader))
-# if torch.cuda.is_available():
-#     a = a[0].cuda(), a[1].cuda(), a[2].cuda()
-# b = label_model(a[0], a[1]).argmax(dim=2)
-
-
-# valid_ele = 0
-# x = 0
-# print(a[0][0][:20])
-# for d1 in range(b.shape[0]):
-#   for d2 in range(b.shape[1]):
-#     if a[2][d1][d2] != 0:
-#       valid_ele += 1
-#       if a[2][d1][d2] == b[d1][d2]:
-#         x += 1
-#     else:
-#       break
-# # x = (a[2] == b).view(-1)
-# acc = x/valid_ele
-# print(acc)
-# print(x)
-# print(valid_ele)
-
-# valid_ele = 0
-# x = 0
-
-# true_lb = []
-# for num_str in num_strings:
-#     if not len(num_str) == 2:
-#         print(num_str)
-#     _, lbs = num_str
-#     true_lb.append([token2idx[tag] for tag in lbs.split()])
-
-# for i in range(len(true_lb)):
-#   for j in range(len(true_lb[i])):
-#       valid_ele += 1
-#       if a[2][i][j] == b[i][j]:
-#         x += 1
-# acc = x/valid_ele
-# print(acc)
-# print(x)
-# print(valid_ele)
