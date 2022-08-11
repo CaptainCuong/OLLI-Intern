@@ -18,6 +18,9 @@ def convert_to_litnum(str_in):
     return ' '.join(words)
 
 def token_label(ws):
+    '''
+    Chuyển list of words sang label
+    '''
     words = ws.copy()
     for i,w in enumerate(words):
         if w in num:
@@ -37,6 +40,10 @@ def token_label(ws):
     return words
 
 def swap_flt(words):
+    '''
+    Chuyển các phần thập phân lên trước
+    E.g. ['mười','giờ','rưỡi'] -> ['mười','rưỡi','giờ']
+    '''
     for i in swap_flt_ind(token_label(words)):
         temp = words[i]
         words[i] = words[i-1]
@@ -150,6 +157,8 @@ def clean_num_abb(words, embedding_model, label_model, seq_len):
     return ' '.join(rt), ' '.join(retlb)
 
 def clean_abb(words, embedding_model, label_model, seq_len):
+
+    # Split a sentence to a list of words
     words = words.lower().split()
 
     # Convert and pad for string
@@ -164,7 +173,6 @@ def clean_abb(words, embedding_model, label_model, seq_len):
     pad_string = torch.cat(pad_string, dim=0).to(torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
     # Get pos_tag
-    # POS_tag = [POS_TAG[tag] for prs, tag in pos_tag(' '.join(words)) for _ in range(len(prs.split()))]
     POS_tag = []
     for prs, tag in pos_tag(' '.join(words)):
         for _ in range(len(prs.split())):
@@ -175,6 +183,7 @@ def clean_abb(words, embedding_model, label_model, seq_len):
     for i in range(len(words), seq_len):
         POS_tag.append(0)
     POS_tag = torch.tensor(POS_tag)
+
     # Get labels
     label = label_model(pad_string.unsqueeze(dim=0), POS_tag.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=seq_len, dim = 4)
     label = label.argmax(dim=2)[0]
@@ -208,6 +217,12 @@ def clean_abb(words, embedding_model, label_model, seq_len):
             rt.append(str(post_num[words[i]]))
             rt_prclabel.append('num')
 
+        # Uncomment if converting abbreviation
+        '''
+        số lượng từ pâ >=3, phía trước ko có 'công ty' -> ghép lại
+
+        từ 2 trở lên ngoại trừ 'anh em'
+        '''
         ####################### ABBREVIATION #######################
         # elif words[i] in spoken_alpb:
         #     st = i
@@ -240,6 +255,7 @@ def clean_abb(words, embedding_model, label_model, seq_len):
             rt_prclabel.append('unknown')
         i += 1
 
+    # Convert label from neural network to literal label
     retlb = []
     for lb in label[:len(words)]:
         if lb == 1:
@@ -255,6 +271,13 @@ def clean_abb(words, embedding_model, label_model, seq_len):
 
 
 def lit2num(words):
+    '''
+    Convert a list of word to number
+    E.g.
+    ['hai','không','hai','hai'] -> 2022
+    ['mười','rưỡi'] -> 10.5
+    '''
+
     i = 0
     # A stack contains (value, level), level: level of magnitude
     stk = [(0,0)]
@@ -303,9 +326,3 @@ def lit2num(words):
 
 def merge_abb(words):
     return ''.join(spoken_alpb[word] for word in words)
- 
-'''
-số lượng từ pâ >=3, phía trước ko có 'công ty' -> ghép lại
-
-từ 2 trở lên ngoại trừ 'anh em'
-'''
