@@ -37,3 +37,7 @@ câu 1
 câu 2
 ...
 ```
+Command để convert
+```
+python converter.py
+```
