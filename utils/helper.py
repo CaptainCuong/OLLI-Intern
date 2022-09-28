@@ -182,7 +182,7 @@ def clean_abb(words, embedding_model, label_model, seq_len):
                 POS_tag.append(0)
     for i in range(len(words), seq_len):
         POS_tag.append(0)
-    POS_tag = torch.tensor(POS_tag)
+    POS_tag = torch.tensor(POS_tag, device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
 
     # Get labels
     label = label_model(pad_string.unsqueeze(dim=0), POS_tag.unsqueeze(dim=0)) # Shape (batch_size=1, sequence_len=seq_len, dim = 4)
@@ -216,40 +216,38 @@ def clean_abb(words, embedding_model, label_model, seq_len):
             print(str(words[i]),'\n')
             rt.append(str(post_num[words[i]]))
             rt_prclabel.append('num')
-
-        # Uncomment if converting abbreviation
-        '''
-        số lượng từ pâ >=3, phía trước ko có 'công ty' -> ghép lại
-
-        từ 2 trở lên ngoại trừ 'anh em'
-        '''
         ####################### ABBREVIATION #######################
-        # elif words[i] in spoken_alpb:
-        #     st = i
-        #     while i < len(words) and words[i] in spoken_alpb:
-        #         i += 1
-        #     lt = i
-        #     if lt-st >= 3:
-        #         # Ex: 'công ty ép pi ti'
-        #         if words[st] in ['ti', 'ty'] and st > 0 and words[st-1] == 'công':
-        #             rt.append(words[st])
-        #             rt_prclabel.append('unknown')
-        #             st += 1
-        #             rt.append(merge_abb(words[st:lt]))
-        #             rt_prclabel.extend(['abb' for _ in range(lt-st)])
-        #         else:
-        #             # Abbreviation exists in database
-        #             mw = merge_abb(words[st:lt])
-        #             rt.append(mw)
-        #             rt_prclabel.extend(['abb' for _ in range(lt-st)])
-        #     elif lt-st == 2 and ' '.join(words[st:lt]) != 'anh em':
-        #         mw = merge_abb(words[st:lt])
-        #         rt.append(mw)
-        #         rt_prclabel.extend(['abb' for _ in range(lt-st)])
-        #     else:
-        #         rt.append(words[i-1])
-        #         rt_prclabel.append('unknown')
-        #     i -= 1
+        elif words[i] in spoken_alpb: # Uncomment if converting abbreviation
+            '''
+            số lượng từ pâ >=3, phía trước ko có 'công ty' -> ghép lại
+
+            từ 2 trở lên ngoại trừ 'anh em'
+            '''
+            st = i
+            while i < len(words) and words[i] in spoken_alpb:
+                i += 1
+            lt = i
+            if lt-st >= 3:
+                # Ex: 'công ty ép pi ti'
+                if words[st] in ['ti', 'ty'] and st > 0 and words[st-1] == 'công':
+                    rt.append(words[st])
+                    rt_prclabel.append('unknown')
+                    st += 1
+                    rt.append(merge_abb(words[st:lt]))
+                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
+                else:
+                    # Abbreviation exists in database
+                    mw = merge_abb(words[st:lt])
+                    rt.append(mw)
+                    rt_prclabel.extend(['abb' for _ in range(lt-st)])
+            elif lt-st == 2 and ' '.join(words[st:lt]) != 'anh em':
+                mw = merge_abb(words[st:lt])
+                rt.append(mw)
+                rt_prclabel.extend(['abb' for _ in range(lt-st)])
+            else:
+                rt.append(words[i-1])
+                rt_prclabel.append('unknown')
+            i -= 1
         else:
             rt.append(words[i])
             rt_prclabel.append('unknown')
